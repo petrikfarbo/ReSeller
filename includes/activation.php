@@ -20,8 +20,8 @@ function fr_activate_plugin() {
     email VARCHAR(255) NOT NULL,
     latitude DECIMAL(10,8) NOT NULL,
     longitude DECIMAL(11,8) NOT NULL,
-    tractors INT NOT NULL,
-    microtractors INT NOT NULL,
+    tratores INT NOT NULL,
+    implementos INT NOT NULL,
     PRIMARY KEY (id)
     );";
 

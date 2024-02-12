@@ -1,120 +1,87 @@
 <?php
-function fr_reseller_admin_page(){
-    
+
+// Callback para a página "Listar e Cadastrar"
+function fr_reseller_admin_page() {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'reseller_data';
+
+    $search_name = isset($_GET['search_name']) ? $_GET['search_name'] : '';
+    $search_code = isset($_GET['search_code']) ? $_GET['search_code'] : '';
+
+    $where = '';
+    if (!empty($search_name)) {
+        $where .= " AND title LIKE '%$search_name%'";
+    }
+    if (!empty($search_code)) {
+        $where .= " AND Codigo = $search_code";
+    }
+
+    $resellers = $wpdb->get_results("SELECT * FROM $table_name WHERE 1 $where", ARRAY_A);
     ?>
-    
-    <script>
-        jQuery(document).ready(function($) {
-            $('#zipcode').on('change', function() {
-                var zipcode = $(this).val();
-                $.ajax({
-                    url: '<?=plugins_url('/', __FILE__).'admin-ajax.php';?>',
-                    type: 'POST',
-                    data: {
-                        zipcode: zipcode
-                    },
-                    success: function(response) {
-                        var data = JSON.parse(response);
-                        if (data.error) {
-                            alert(data.error);
-                        } else {
-                            console.log(data);
-                            $('#state').val(data.state);
-                            $('#city').val(data.city);
-                            $('#address').val(data.address);
-                            $('#latitude').val(data.latitude);
-                            $('#longitude').val(data.longitude);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
-        });
-    </script>
-
+    <style>
+        p.search-box{
+            float: left;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
     <div class="wrap">
-        <h1>ReSeller - Plugin</h1>
-    </div>
-
-
-    <div class="wrap">
-        <form action="admin-post.php" method="post">
-            <input type="hidden" name="action" value="fr_reseller_form_submission">
-            <?php wp_nonce_field( 'fr_reseller_form_verify' );?>
-
-
-            <table class="form-table">
-                <tbody>
-                <tr>
-                    <th scope="row"><label for="codigo">Código:</label></th>
-                    <td><input type="number" name="codigo" id="codigo" class="regular-text" required></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="title">Nome da Empresa:</label></th>
-                    <td><input type="text" name="title" id="title" class="regular-text" required></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="country">País:</label></th>
-                    <td><input type="text" name="country" id="country" class="regular-text" maxlength="2" required></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="zipcode">CEP:</label></th>
-                    <td><input type="text" name="zipcode" id="zipcode" class="regular-text" maxlength="10" required></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="phone">Telefone:</label></th>
-                    <td><input type="text" name="phone" id="phone" class="regular-text" required></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="whatsapp">WhatsApp:</label></th>
-                    <td><input type="text" name="whatsapp" id="whatsapp" class="regular-text"></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="fax">Fax:</label></th>
-                    <td><input type="text" name="fax" id="fax" class="regular-text"></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="email">E-mail:</label></th>
-                    <td><input type="email" name="email" id="email" class="regular-text" required></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="state">Estado:</label></th>
-                    <td><input type="text" name="state" id="state" class="regular-text" maxlength="2" required></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="city">Cidade:</label></th>
-                    <td><input type="text" name="city" id="city" class="regular-text" required></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="address">Endereço:</label></th>
-                    <td><input type="text" name="address" id="address" class="regular-text" required></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="latitude">Latitude:</label></th>
-                    <td><input type="text" step="0.000001" name="latitude" id="latitude" class="regular-text" required></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="longitude">Longitude:</label></th>
-                    <td><input type="text" step="0.000001" name="longitude" id="longitude" class="regular-text" required></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="tractors">Tratores:</label></th>
-                    <td><input type="checkbox" name="tractors" id="tractors" class="regular-text"></td>
-                </tr>
-                <tr>    
-                    <th scope="row"><label for="microtractors">Microtratores:</label></th>
-                    <td><input type="checkbox" name="microtractors" id="microtractors" class="regular-text"></td>
-                </tr>
-                </tbody>
-            </table>
-
-            <p class="submit">
-                <input type="submit" name="submit" id="submit" class="button button-primary" value="Cadastrar Empresa">
+        <h1 class="wp-heading-inline">Revendedoras</h1>
+        <a href="<?php echo admin_url('admin.php?page=fr_reseller_cadastrar'); ?>" class="page-title-action">Adicionar Novo</a>
+        <form method="get" action="">
+            <input type="hidden" name="page" value="fr_reseller">
+            <p class="search-box">
+                <label class="screen-reader-text" for="search_name">Pesquisar por Nome:</label>
+                <input type="text" id="search_name" name="search_name" value="<?php echo esc_attr($search_name); ?>" placeholder="Pesquisar por Nome">
+                <label class="screen-reader-text" for="search_code">Pesquisar por Código:</label>
+                <input type="text" id="search_code" name="search_code" value="<?php echo esc_attr($search_code); ?>" placeholder="Pesquisar por Código">
+                <input type="submit" id="search-submit" class="button" value="Pesquisar Revendedoras">
             </p>
         </form>
-
+        <table class="wp-list-table widefat striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Código</th>
+                    <th>Título</th>
+                    <th>País</th>
+                    <th>Estado</th>
+                    <th>Cidade</th>
+                    <th>Endereço</th>
+                    <th>CEP</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th>Tratores</th>
+                    <th>Implementos</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($resellers) {
+                    foreach ($resellers as $reseller) {
+                        echo "<tr>";
+                        echo "<td>{$reseller['id']}</td>";
+                        echo "<td>{$reseller['Codigo']}</td>";
+                        echo "<td>{$reseller['title']}</td>";
+                        echo "<td>{$reseller['country']}</td>";
+                        echo "<td>{$reseller['state']}</td>";
+                        echo "<td>{$reseller['city']}</td>";
+                        echo "<td>{$reseller['address']}</td>";
+                        echo "<td>{$reseller['zipcode']}</td>";
+                        echo "<td>{$reseller['phone']}</td>";
+                        echo "<td>{$reseller['email']}</td>";
+                        echo "<td>" . ($reseller['tractors'] == 1 ? 'Sim' : 'Não') . "</td>";
+                        echo "<td>" . ($reseller['microtractors'] == 1 ? 'Sim' : 'Não') . "</td>";
+                        echo "<td><a href='" . admin_url('admin.php?page=fr_reseller_cadastrar&reseller_id=' . $reseller['id']) . "'>Editar</a></td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='17'>Nenhuma revendedora encontrada.</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
     </div>
     <?php
 }

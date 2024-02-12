@@ -19,7 +19,7 @@ include 'includes/activation.php';
 include 'includes/admin/admin_init.php';
 include 'includes/admin/menus.php';
 include 'includes/admin/reseller_admin_page.php';
-include 'includes/admin/reseller_form_submission.php';
+include 'includes/admin/reseller_cadastrar_page.php';
 
 //HOOKs
 register_activation_hook(RESELLER_PLUGIN_URL, 'fr_activate_plugin');
