@@ -55,7 +55,7 @@ function fr_reseller_cadastrar_page(){
                     </script>
 
                     <div class="wrap">
-                        <h1>ReSeller - Plugin</h1>
+                        <h1>ReSeller - Editar</h1>
                     </div>
 
 
@@ -192,7 +192,7 @@ function fr_reseller_cadastrar_page(){
     </script>
 
     <div class="wrap">
-        <h1>ReSeller - Plugin</h1>
+        <h1>ReSeller - Cadastrar</h1>
     </div>
 
 

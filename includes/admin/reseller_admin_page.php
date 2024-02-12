@@ -26,7 +26,7 @@ function fr_reseller_admin_page() {
         }
     </style>
     <div class="wrap">
-        <h1 class="wp-heading-inline">Revendedoras</h1>
+        <h1 class="wp-heading-inline">ReSeller - Lista</h1><br/><br/>
         <a href="<?php echo admin_url('admin.php?page=fr_reseller_cadastrar'); ?>" class="page-title-action">Adicionar Novo</a>
         <form method="get" action="">
             <input type="hidden" name="page" value="fr_reseller">
