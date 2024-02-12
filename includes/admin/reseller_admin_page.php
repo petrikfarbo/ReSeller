@@ -71,8 +71,8 @@ function fr_reseller_admin_page() {
                         echo "<td>{$reseller['zipcode']}</td>";
                         echo "<td>{$reseller['phone']}</td>";
                         echo "<td>{$reseller['email']}</td>";
-                        echo "<td>" . ($reseller['tractors'] == 1 ? 'Sim' : 'Não') . "</td>";
-                        echo "<td>" . ($reseller['microtractors'] == 1 ? 'Sim' : 'Não') . "</td>";
+                        echo "<td>" . ($reseller['tratores'] == 1 ? 'Sim' : 'Não') . "</td>";
+                        echo "<td>" . ($reseller['implementos'] == 1 ? 'Sim' : 'Não') . "</td>";
                         echo "<td><a href='" . admin_url('admin.php?page=fr_reseller_cadastrar&reseller_id=' . $reseller['id']) . "'>Editar</a></td>";
                         echo "</tr>";
                     }

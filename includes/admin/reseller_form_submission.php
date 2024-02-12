@@ -26,8 +26,8 @@ function fr_reseller_form_submission() {
     $email = $_POST['email'];
     $latitude = $_POST['latitude'];
     $longitude = $_POST['longitude'];
-    $tractors = isset($_POST['tractors']) ? 1 : 0;
-    $microtractors = isset($_POST['microtractors']) ? 1 : 0;
+    $tratores = isset($_POST['tratores']) ? 1 : 0;
+    $implementos = isset($_POST['implementos']) ? 1 : 0;
 
     // Inserir dados no banco de dados
     // Verificar se é uma atualização ou um novo cadastro
@@ -51,8 +51,8 @@ function fr_reseller_form_submission() {
                 'address' => $address,
                 'latitude' => $latitude,
                 'longitude' => $longitude,
-                'tractors' => $tractors,
-                'microtractors' => $microtractors
+                'tratores' => $tratores,
+                'implementos' => $implementos
             ),
             array('id' => $reseller_id),
             array(
@@ -77,8 +77,8 @@ function fr_reseller_form_submission() {
                 'email' => $email,
                 'latitude' => $latitude,
                 'longitude' => $longitude,
-                'tractors' => $tractors,
-                'microtractors' => $microtractors,
+                'tratores' => $tratores,
+                'implementos' => $implementos,
             )
         );
     }

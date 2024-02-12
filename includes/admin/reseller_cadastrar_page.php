@@ -121,12 +121,12 @@ function fr_reseller_cadastrar_page(){
                                     <td><input type="text" step="0.000001" name="longitude" id="longitude" class="regular-text" value="<?=$reseller['longitude']?>" required></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><label for="tractors">Tratores:</label></th>
-                                    <td><input type="checkbox" name="tractors" id="tractors" class="regular-text" <?php echo $reseller['tractors'] == 1 ? "checked" : ""; ?>></td>
+                                    <th scope="row"><label for="tratores">Tratores:</label></th>
+                                    <td><input type="checkbox" name="tratores" id="tratores" class="regular-text" <?php echo $reseller['tratores'] == 1 ? "checked" : ""; ?>></td>
                                 </tr>
                                 <tr>    
-                                    <th scope="row"><label for="microtractors">Implementos:</label></th>
-                                    <td><input type="checkbox" name="microtractors" id="microtractors" class="regular-text" <?php echo $reseller['microtractors'] == 1 ? "checked" : ""; ?>></td>
+                                    <th scope="row"><label for="implementos">Implementos:</label></th>
+                                    <td><input type="checkbox" name="implementos" id="implementos" class="regular-text" <?php echo $reseller['implementos'] == 1 ? "checked" : ""; ?>></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -257,12 +257,12 @@ function fr_reseller_cadastrar_page(){
                     <td><input type="text" step="0.000001" name="longitude" id="longitude" class="regular-text" required></td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="tractors">Tratores:</label></th>
-                    <td><input type="checkbox" name="tractors" id="tractors" class="regular-text"></td>
+                    <th scope="row"><label for="tratores">Tratores:</label></th>
+                    <td><input type="checkbox" name="tratores" id="tratores" class="regular-text"></td>
                 </tr>
                 <tr>    
-                    <th scope="row"><label for="microtractors">Implementos:</label></th>
-                    <td><input type="checkbox" name="microtractors" id="microtractors" class="regular-text"></td>
+                    <th scope="row"><label for="implementos">Implementos:</label></th>
+                    <td><input type="checkbox" name="implementos" id="implementos" class="regular-text"></td>
                 </tr>
                 </tbody>
             </table>
