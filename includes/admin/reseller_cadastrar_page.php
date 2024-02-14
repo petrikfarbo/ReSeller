@@ -113,6 +113,10 @@ function fr_reseller_cadastrar_page(){
                                     <td><input type="text" name="address" id="address" class="regular-text" value="<?=$reseller['address']?>" required></td>
                                 </tr>
                                 <tr>
+                                    <th scope="row"><label for="numero">Numero:</label></th>
+                                    <td><input type="text" name="numero" id="numero" class="regular-text" value="<?=$reseller['numero']?>" required></td>
+                                </tr>
+                                <tr>
                                     <th scope="row"><label for="latitude">Latitude:</label></th>
                                     <td><input type="text" step="0.000001" name="latitude" id="latitude" class="regular-text" value="<?=$reseller['latitude']?>" required></td>
                                 </tr>
@@ -247,6 +251,10 @@ function fr_reseller_cadastrar_page(){
                 <tr>
                     <th scope="row"><label for="address">Endereço:</label></th>
                     <td><input type="text" name="address" id="address" class="regular-text" required></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="numero">Numero:</label></th>
+                    <td><input type="text" name="numero" id="numero" class="regular-text" required></td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="latitude">Latitude:</label></th>

@@ -1,0 +1,1 @@
+<?=plugins_url('/', __FILE__).'admin-ajax.php';?>

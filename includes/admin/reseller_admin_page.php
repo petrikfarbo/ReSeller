@@ -67,7 +67,7 @@ function fr_reseller_admin_page() {
                         echo "<td>{$reseller['country']}</td>";
                         echo "<td>{$reseller['state']}</td>";
                         echo "<td>{$reseller['city']}</td>";
-                        echo "<td>{$reseller['address']}</td>";
+                        echo "<td>{$reseller['address']}, {$reseller['numero']}</td>";
                         echo "<td>{$reseller['zipcode']}</td>";
                         echo "<td>{$reseller['phone']}</td>";
                         echo "<td>{$reseller['email']}</td>";

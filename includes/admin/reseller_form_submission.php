@@ -3,6 +3,10 @@ function fr_reseller_form_submission() {
       
     global $wpdb;
 
+    if(!current_user_can('edit_theme_options')){
+        wp_die('Erro de segurança - Usuario sem permissão.');
+    }
+
     if (!isset($_POST['action']) || $_POST['action'] !== 'fr_reseller_form_submission') {
         wp_die('Erro de segurança.');
     }
@@ -19,6 +23,7 @@ function fr_reseller_form_submission() {
     $state = $_POST['state'];
     $city = $_POST['city'];
     $address = $_POST['address'];
+    $numero = $_POST['numero'];
     $zipcode = $_POST['zipcode'];
     $phone = $_POST['phone'];
     $whatsapp = $_POST['whatsapp'];
@@ -49,6 +54,7 @@ function fr_reseller_form_submission() {
                 'state' => $state,
                 'city' => $city,
                 'address' => $address,
+                'numero' => $numero,
                 'latitude' => $latitude,
                 'longitude' => $longitude,
                 'tratores' => $tratores,
@@ -56,7 +62,7 @@ function fr_reseller_form_submission() {
             ),
             array('id' => $reseller_id),
             array(
-                '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d'
+                '%d', '%s', '%s', '%s', '%s', '%s',  '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d'
             ),
             array('%d')
         );
@@ -70,6 +76,7 @@ function fr_reseller_form_submission() {
                 'state' => $state,
                 'city' => $city,
                 'address' => $address,
+                'numero' => $numero,
                 'zipcode' => $zipcode,
                 'phone' => $phone,
                 'whatsapp' => $whatsapp,

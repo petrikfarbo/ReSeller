@@ -20,6 +20,8 @@ include 'includes/admin/admin_init.php';
 include 'includes/admin/menus.php';
 include 'includes/admin/reseller_admin_page.php';
 include 'includes/admin/reseller_cadastrar_page.php';
+include 'includes/shortcode/reseller_form.php';
+include 'includes/shortcode/reseller_list.php';
 
 //HOOKs
 register_activation_hook(RESELLER_PLUGIN_URL, 'fr_activate_plugin');
@@ -28,4 +30,6 @@ add_action('admin_init', 'fr_reseller_admin_init');
 add_action('admin_menu', 'fr_reseller_admin_menus');
 
 //SHORTCODE
+add_shortcode('reseller_from', 'fr_reseller_from_shortcode');
+add_shortcode('reseller_list', 'fr_reseller_list_shortcode');
 ?>

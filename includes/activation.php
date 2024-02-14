@@ -13,6 +13,7 @@ function fr_activate_plugin() {
     state VARCHAR(2) NOT NULL,
     city VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
+    numero VARCHAR(6) NOT NULL,
     zipcode VARCHAR(10) NOT NULL,
     phone VARCHAR(20) NOT NULL,
     whatsapp VARCHAR(20) NULL,
