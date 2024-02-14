@@ -30,6 +30,6 @@ add_action('admin_init', 'fr_reseller_admin_init');
 add_action('admin_menu', 'fr_reseller_admin_menus');
 
 //SHORTCODE
-add_shortcode('reseller_from', 'fr_reseller_from_shortcode');
+add_shortcode('reseller_form', 'fr_reseller_form_shortcode');
 add_shortcode('reseller_list', 'fr_reseller_list_shortcode');
 ?>
