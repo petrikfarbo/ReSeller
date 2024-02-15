@@ -4,6 +4,7 @@ function fr_reseller_form_shortcode() {
     global $wpdb;
     $table_name = $wpdb->prefix . 'reseller_data';
     ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         jQuery(document).ready(function($) {
             $('#zipcode').inputmask('99999-999');
@@ -25,7 +26,7 @@ function fr_reseller_form_shortcode() {
                             if (data.error) {
                                 alert(data.error);
                             } else {
-                                console.log(data);
+                                //console.log(data);
                                 var latitudeReferencia =  data.latitude;
                                 var longitudeReferencia = data.longitude;
 
@@ -41,41 +42,46 @@ function fr_reseller_form_shortcode() {
                                     var d = R * c; // distância em km
                                     return d;
                                 }   
-                                var settings = {
-                                    url: '<?=plugins_url('/', __FILE__).'resellers.json';?>',
-                                    method: "GET",
-                                    dataType: "json",
-                                    success: function(data) {
-                                        console.log(data); 
-                                        var localidades = {
-                                            "stores": data
-                                        };
-
-                                        localidades.stores.forEach(function(localidade) {
-                                            if (localidade.latitude && localidade.longitude) {
-                                                var distancia = calcularDistancia(parseFloat(localidade.latitude), parseFloat(localidade.longitude), latitudeReferencia, longitudeReferencia);
-                                                localidade.distancia = distancia;
-                                            } else {
-                                                localidade.distancia = Infinity; 
-                                            }
-                                        });
-
-                                        localidades.stores.sort(function(a, b) {
-                                            return a.distancia - b.distancia;
-                                        });
-
-                                        localidades.stores.forEach(function(localidade) {
-                                            console.log(localidade.title + ": " + localidade.distancia + " km");
-                                        }); 
-                                    }
-                                };
-
-                                // Faz a requisição AJAX
-                                $.ajax(settings);
-
                                 
+                                var localidades = {"stores": data.reselles_data};
 
+                                //console.log(localidades);
+                                $(".fr-data").empty();
 
+                                localidades.stores.forEach(function(localidade) {
+                                    if (localidade.latitude && localidade.longitude) {
+                                        var distancia = calcularDistancia(parseFloat(localidade.latitude), parseFloat(localidade.longitude), latitudeReferencia, longitudeReferencia);
+                                        localidade.distancia = distancia;
+                                    } else {
+                                        localidade.distancia = Infinity; 
+                                    }
+                                });
+
+                                localidades.stores.sort(function(a, b) {
+                                    return a.distancia - b.distancia;
+                                });
+
+                                localidades.stores.forEach(function(localidade) {
+                                    console.log(localidade.title + ": " + localidade.distancia + " km");
+                                    var enderecoCompleto = localidade.address + (localidade.numero ? ', ' + localidade.numero : '');
+                                    var cep = localidade.zipcode || '';
+                                    var telefone2 = localidade.zipcode ? '' : '<span class="fr-data-phone2">Tel: </span><span class="fr-data-phone2-info">' + localidade.phone2 + '</span></br>';
+
+                                    var html = '<div class="flex flex-column flex-50 fr-data-single">' +
+                                        '<div class="fr-title"><span>' + localidade.title + '</span></div>' +
+                                        '<div class="fr-info">' +
+                                        '<span class="fr-data-address">Endereço: </span><span class="fr-data-address-info">' + enderecoCompleto + '</span></br>' +
+                                        '<span class="fr-data-country">País: </span><span class="fr-data-country-info">' + localidade.country + '</span></br>' +
+                                        '<span class="fr-data-zipcode">CEP: </span><span class="fr-data-zipcode-info">' + cep + '</span></br>' +
+                                        '<span class="fr-data-phone">Tel: </span><span class="fr-data-phone-info">' + localidade.phone + '</span></br>' +
+                                        telefone2 +
+                                        '</div></div>';
+
+                                    $(".fr-data").append(html);
+                                            
+
+                                }); 
+                                
 
                             }
                         },
@@ -109,8 +115,14 @@ function fr_reseller_form_shortcode() {
         .flex-1{
             flex: 1;
         }
+        .flex-50{
+            flex: 0 0 40%;
+        }
         .flex-wrap{
             flex-wrap: wrap;
+        }
+        .flex-space-between {
+            justify-content: space-between;
         }
         .flex-item-center{
             align-items: center;
@@ -126,6 +138,9 @@ function fr_reseller_form_shortcode() {
         .search-btn-zipcode{
             height: 32px;
             padding: 5px;
+        }
+        .fr-data-single{
+            padding: 10px;
         }
         
     </style>

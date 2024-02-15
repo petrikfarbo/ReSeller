@@ -1,6 +1,8 @@
 <?php
-
+// Inicia o buffer de saída
+ob_start(); 
 // Dados da requisição
+$_POST['zipcode'] = '13876854';
 if (isset($_POST['zipcode'])) {
     $cep = $_POST['zipcode'];
 
@@ -26,13 +28,26 @@ if (isset($_POST['zipcode'])) {
         
         // Verificando se os dados foram obtidos corretamente
         if ($data !== null) {
+            require_once('../../../../../wp-load.php');
+            global $wpdb;
+            if ( !isset($wpdb) ) {
+                die("Erro: Não foi possível inicializar o objeto global \$wpdb. Certifique-se de estar executando este script dentro do contexto do WordPress.");
+            }
+
+            $table_name = $wpdb->prefix . 'reseller_data';
+            $resellers_data = $wpdb->get_results("SELECT * FROM $table_name", ARRAY_A);
+
+            if ($wpdb->last_error) {
+                echo "Ocorreu um erro ao tentar recuperar os dados: " . $wpdb->last_error;
+            }
             // Exibindo os dados
             echo json_encode(array(
                     "latitude" => $data['latitude'],
                     "longitude" => $data['longitude'],
                     "address" => $data['logradouro'],
                     "city" => $data['cidade']['nome'],
-                    "state" => $data['estado']['sigla']
+                    "state" => $data['estado']['sigla'],
+                    "reselles_data" => $resellers_data
                     )
             );
 
@@ -45,5 +60,6 @@ if (isset($_POST['zipcode'])) {
 }else{
     echo "Fail"; 
 }
-
+// Limpa o buffer de saída e exibe seu conteúdo
+echo ob_get_clean();
 ?>

@@ -14,43 +14,49 @@ function fr_reseller_cadastrar_page(){
                     <script>
                         jQuery(document).ready(function($) {
                             $('#zipcode').on('change', function() {
-                                var zipcode = $(this).val();
-                                zipcode = zipcode.replace('-', '');
-                                $.ajax({
-                                    url: '<?=plugins_url('/', __FILE__).'admin-ajax.php';?>',
-                                    type: 'POST',
-                                    data: {
-                                        zipcode: zipcode
-                                    },
-                                    success: function(response) {
-                                        var data = JSON.parse(response);
-                                        if (data.error) {
-                                            alert(data.error);
-                                        } else {
-                                            console.log(data);
-                                            $('#state').val(data.state);
-                                            $('#city').val(data.city);
-                                            $('#address').val(data.address);
-                                            $('#latitude').val(data.latitude);
-                                            $('#longitude').val(data.longitude);
+                                var country = $('#country').val();
+                                if(country == "Brasil" || country == "BRASIL" || country == "Br" || country == "BR" || country == "br"){
+                                    var zipcode = $(this).val();
+                                    zipcode = zipcode.replace('-', '');
+                                    $.ajax({
+                                        url: '<?=plugins_url('/', __FILE__).'admin-ajax.php';?>',
+                                        type: 'POST',
+                                        data: {
+                                            zipcode: zipcode
+                                        },
+                                        success: function(response) {
+                                            var data = JSON.parse(response);
+                                            if (data.error) {
+                                                alert(data.error);
+                                            } else {
+                                                console.log(data);
+                                                $('#state').val(data.state);
+                                                $('#city').val(data.city);
+                                                $('#address').val(data.address);
+                                                $('#latitude').val(data.latitude);
+                                                $('#longitude').val(data.longitude);
+                                            }
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error(xhr.responseText);
                                         }
-                                    },
-                                    error: function(xhr, status, error) {
-                                        console.error(xhr.responseText);
-                                    }
-                                });
+                                    });
+                                }
+                                
                             });
-                        });
-                    </script>
-                    <script>
-                        jQuery(document).ready(function($) {
-                            $('#phone').inputmask('(99) 9 9999-9999');
+                            
+                            $('#country').on('change', function() {
+                                var country = $(this).val();
+                                if(country == "Brasil" || country == "BRASIL" || country == "Br" || country == "BR" || country == "br"){
+                                    $('#phone').inputmask('(99) 9 9999-9999');
 
-                            $('#whatsapp').inputmask('(99) 9 9999-9999');
+                                    $('#whatsapp').inputmask('(99) 9 9999-9999');
 
-                            $('#fax').inputmask('(99) 9999-9999');
+                                    $('#fax').inputmask('(99) 9999-9999');
 
-                            $('#zipcode').inputmask('99999-999');
+                                    $('#zipcode').inputmask('99999-999');
+                                }
+                            });
                         });
                     </script>
 
@@ -74,19 +80,23 @@ function fr_reseller_cadastrar_page(){
                                 </tr>
                                 <tr>
                                     <th scope="row"><label for="title">Nome da Empresa:</label></th>
-                                    <td><input type="text" name="title" id="title" class="regular-text" value="<?=$reseller['title']?>"required></td>
+                                    <td><input type="text" name="title" id="title" class="regular-text" value="<?=$reseller['title']?>" required></td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><label for="country">País:</label></th>
-                                    <td><input type="text" name="country" id="country" class="regular-text" maxlength="20" value="<?=$reseller['country']?>"required></td>
+                                    <td><input type="text" name="country" id="country" class="regular-text" maxlength="20" value="<?=$reseller['country']?>" required></td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><label for="zipcode">CEP:</label></th>
-                                    <td><input type="text" name="zipcode" id="zipcode" class="regular-text" maxlength="10" value="<?=$reseller['zipcode']?>"required></td>
+                                    <td><input type="text" name="zipcode" id="zipcode" class="regular-text" maxlength="10" value="<?=$reseller['zipcode']?>"></td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><label for="phone">Telefone:</label></th>
-                                    <td><input type="text" name="phone" id="phone" class="regular-text" value="<?=$reseller['phone']?>"required></td>
+                                    <td><input type="text" name="phone" id="phone" class="regular-text" value="<?=$reseller['phone']?>" required></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="phone2">Telefone 2:</label></th>
+                                    <td><input type="text" name="phone2" id="phone2" class="regular-text" value="<?=$reseller['phone2']?>"></td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><label for="whatsapp">WhatsApp:</label></th>
@@ -101,8 +111,12 @@ function fr_reseller_cadastrar_page(){
                                     <td><input type="email" name="email" id="email" class="regular-text" value="<?=$reseller['email']?>" required></td>
                                 </tr>
                                 <tr>
+                                    <th scope="row"><label for="email2">E-mail 2:</label></th>
+                                    <td><input type="email" name="email2" id="email2" class="regular-text" value="<?=$reseller['email2']?>"></td>
+                                </tr>
+                                <tr>
                                     <th scope="row"><label for="state">Estado:</label></th>
-                                    <td><input type="text" name="state" id="state" class="regular-text" maxlength="2" value="<?=$reseller['state']?>" required></td>
+                                    <td><input type="text" name="state" id="state" class="regular-text" maxlength="2" value="<?=$reseller['state']?>"></td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><label for="city">Cidade:</label></th>
@@ -114,15 +128,15 @@ function fr_reseller_cadastrar_page(){
                                 </tr>
                                 <tr>
                                     <th scope="row"><label for="numero">Numero:</label></th>
-                                    <td><input type="text" name="numero" id="numero" class="regular-text" value="<?=$reseller['numero']?>" required></td>
+                                    <td><input type="text" name="numero" id="numero" class="regular-text" value="<?=$reseller['numero']?>"></td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><label for="latitude">Latitude:</label></th>
-                                    <td><input type="text" step="0.000001" name="latitude" id="latitude" class="regular-text" value="<?=$reseller['latitude']?>" required></td>
+                                    <td><input type="text" step="0.000001" name="latitude" id="latitude" class="regular-text" value="<?=$reseller['latitude']?>"></td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><label for="longitude">Longitude:</label></th>
-                                    <td><input type="text" step="0.000001" name="longitude" id="longitude" class="regular-text" value="<?=$reseller['longitude']?>" required></td>
+                                    <td><input type="text" step="0.000001" name="longitude" id="longitude" class="regular-text" value="<?=$reseller['longitude']?>"></td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><label for="tratores">Tratores:</label></th>
@@ -131,6 +145,10 @@ function fr_reseller_cadastrar_page(){
                                 <tr>    
                                     <th scope="row"><label for="implementos">Implementos:</label></th>
                                     <td><input type="checkbox" name="implementos" id="implementos" class="regular-text" <?php echo $reseller['implementos'] == 1 ? "checked" : ""; ?>></td>
+                                </tr>
+                                <tr>    
+                                    <th scope="row"><label for="pecas">Peças:</label></th>
+                                    <td><input type="checkbox" name="pecas" id="pecas" class="regular-text" <?php echo $reseller['pecas'] == 1 ? "checked" : ""; ?>></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -222,11 +240,15 @@ function fr_reseller_cadastrar_page(){
                 </tr>
                 <tr>
                     <th scope="row"><label for="zipcode">CEP:</label></th>
-                    <td><input type="text" name="zipcode" id="zipcode" class="regular-text" maxlength="10" required></td>
+                    <td><input type="text" name="zipcode" id="zipcode" class="regular-text" maxlength="10"></td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="phone">Telefone:</label></th>
                     <td><input type="text" name="phone" id="phone" class="regular-text" required></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="phone2">Telefone 2:</label></th>
+                    <td><input type="text" name="phone2" id="phone2" class="regular-text"></td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="whatsapp">WhatsApp:</label></th>
@@ -241,8 +263,12 @@ function fr_reseller_cadastrar_page(){
                     <td><input type="email" name="email" id="email" class="regular-text" required></td>
                 </tr>
                 <tr>
+                    <th scope="row"><label for="email2">E-mail 2:</label></th>
+                    <td><input type="email" name="email2" id="email2" class="regular-text"></td>
+                </tr>
+                <tr>
                     <th scope="row"><label for="state">Estado:</label></th>
-                    <td><input type="text" name="state" id="state" class="regular-text" maxlength="2" required></td>
+                    <td><input type="text" name="state" id="state" class="regular-text" maxlength="2"></td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="city">Cidade:</label></th>
@@ -254,15 +280,15 @@ function fr_reseller_cadastrar_page(){
                 </tr>
                 <tr>
                     <th scope="row"><label for="numero">Numero:</label></th>
-                    <td><input type="text" name="numero" id="numero" class="regular-text" required></td>
+                    <td><input type="text" name="numero" id="numero" class="regular-text"></td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="latitude">Latitude:</label></th>
-                    <td><input type="text" step="0.000001" name="latitude" id="latitude" class="regular-text" required></td>
+                    <td><input type="text" step="0.000001" name="latitude" id="latitude" class="regular-text"></td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="longitude">Longitude:</label></th>
-                    <td><input type="text" step="0.000001" name="longitude" id="longitude" class="regular-text" required></td>
+                    <td><input type="text" step="0.000001" name="longitude" id="longitude" class="regular-text"></td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="tratores">Tratores:</label></th>
@@ -271,6 +297,10 @@ function fr_reseller_cadastrar_page(){
                 <tr>    
                     <th scope="row"><label for="implementos">Implementos:</label></th>
                     <td><input type="checkbox" name="implementos" id="implementos" class="regular-text"></td>
+                </tr>
+                <tr>    
+                    <th scope="row"><label for="pecas">Peças:</label></th>
+                    <td><input type="checkbox" name="pecas" id="pecas" class="regular-text"></td>
                 </tr>
                 </tbody>
             </table>

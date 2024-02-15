@@ -26,13 +26,16 @@ function fr_reseller_form_submission() {
     $numero = $_POST['numero'];
     $zipcode = $_POST['zipcode'];
     $phone = $_POST['phone'];
+    $phone2 = $_POST['phone2'];
     $whatsapp = $_POST['whatsapp'];
     $fax = $_POST['fax'];
     $email = $_POST['email'];
+    $email2 = $_POST['email2'];
     $latitude = $_POST['latitude'];
     $longitude = $_POST['longitude'];
     $tratores = isset($_POST['tratores']) ? 1 : 0;
     $implementos = isset($_POST['implementos']) ? 1 : 0;
+    $pecas = isset($_POST['pecas']) ? 1 : 0;
 
     // Inserir dados no banco de dados
     // Verificar se é uma atualização ou um novo cadastro
@@ -48,9 +51,11 @@ function fr_reseller_form_submission() {
                 'country' => $country,
                 'zipcode' => $zipcode,
                 'phone' => $phone,
+                'phone2' => $phone2,
                 'whatsapp' => $whatsapp,
                 'fax' => $fax,
                 'email' => $email,
+                'email2' => $email2,
                 'state' => $state,
                 'city' => $city,
                 'address' => $address,
@@ -58,13 +63,13 @@ function fr_reseller_form_submission() {
                 'latitude' => $latitude,
                 'longitude' => $longitude,
                 'tratores' => $tratores,
-                'implementos' => $implementos
+                'implementos' => $implementos,
+                'pecas' => $pecas
             ),
             array('id' => $reseller_id),
             array(
-                '%d', '%s', '%s', '%s', '%s', '%s',  '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d'
-            ),
-            array('%d')
+                '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d', '%d'
+            )
         );
     }else{
         $wpdb->insert(
@@ -79,13 +84,16 @@ function fr_reseller_form_submission() {
                 'numero' => $numero,
                 'zipcode' => $zipcode,
                 'phone' => $phone,
+                'phone2' => $phone2,
                 'whatsapp' => $whatsapp,
                 'fax' => $fax,
                 'email' => $email,
+                'email2' => $email2,
                 'latitude' => $latitude,
                 'longitude' => $longitude,
                 'tratores' => $tratores,
                 'implementos' => $implementos,
+                'pecas' => $pecas
             )
         );
     }
