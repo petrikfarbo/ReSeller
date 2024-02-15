@@ -1,41 +1,100 @@
 <?php
 function fr_reseller_form_shortcode() {
     ob_start(); 
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'reseller_data';
     ?>
     <script>
         jQuery(document).ready(function($) {
-            $('#zipcode').on('change', function() {
-                var zipcode = $(this).val();
-                zipcode = zipcode.replace('-', '');
-                $.ajax({
-                    url: '<?=plugins_url('/', __FILE__).'admin-ajax.php';?>',
-                    type: 'POST',
-                    data: {
-                        zipcode: zipcode
-                    },
-                    success: function(response) {
-                        var data = JSON.parse(response);
-                        if (data.error) {
-                            alert(data.error);
-                        } else {
-                            console.log(data);
-                            $('#state').val(data.state);
-                            $('#city').val(data.city);
-                            $('#address').val(data.address);
-                            $('#latitude').val(data.latitude);
-                            $('#longitude').val(data.longitude);
+            $('#zipcode').inputmask('99999-999');
+
+            $('#zipcode-search').on('click', function(e) {
+                e.preventDefault();
+                var zipcode = $('#zipcode').val();
+                if (typeof zipcode !== "undefined" && zipcode !== "") {
+                    zipcode = zipcode.replace('-', '');
+
+                    $.ajax({
+                        url: '<?=plugins_url('/', __FILE__).'shortcode-ajax.php';?>',
+                        type: 'POST',
+                        data: {
+                            zipcode: zipcode
+                        },
+                        success: function(response) {
+                            var data = JSON.parse(response);
+                            if (data.error) {
+                                alert(data.error);
+                            } else {
+                                console.log(data);
+                                var latitudeReferencia =  data.latitude;
+                                var longitudeReferencia = data.longitude;
+
+                                function calcularDistancia(lat1, lon1, lat2, lon2) {
+                                    var R = 6371; // raio da Terra em km
+                                    var dLat = (lat2 - lat1) * Math.PI / 180;
+                                    var dLon = (lon2 - lon1) * Math.PI / 180;
+                                    var a =
+                                        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                                        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                                        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                                    var d = R * c; // distância em km
+                                    return d;
+                                }   
+                                var settings = {
+                                    url: '<?=plugins_url('/', __FILE__).'resellers.json';?>',
+                                    method: "GET",
+                                    dataType: "json",
+                                    success: function(data) {
+                                        console.log(data); 
+                                        var localidades = {
+                                            "stores": data
+                                        };
+
+                                        localidades.stores.forEach(function(localidade) {
+                                            if (localidade.latitude && localidade.longitude) {
+                                                var distancia = calcularDistancia(parseFloat(localidade.latitude), parseFloat(localidade.longitude), latitudeReferencia, longitudeReferencia);
+                                                localidade.distancia = distancia;
+                                            } else {
+                                                localidade.distancia = Infinity; 
+                                            }
+                                        });
+
+                                        localidades.stores.sort(function(a, b) {
+                                            return a.distancia - b.distancia;
+                                        });
+
+                                        localidades.stores.forEach(function(localidade) {
+                                            console.log(localidade.title + ": " + localidade.distancia + " km");
+                                        }); 
+                                    }
+                                };
+
+                                // Faz a requisição AJAX
+                                $.ajax(settings);
+
+                                
+
+
+
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
-                });
+                    });
+                }
+                
+                
+                
+                
             });
         });
     </script>
     <?php
-    global $wpdb;
-    $table_name = $wpdb->prefix . 'reseller_data';
+    $resellers_data = $wpdb->get_results("SELECT * FROM $table_name", ARRAY_A);
+    file_put_contents('wp-content/plugins/reseller/includes/shortcode/resellers.json', json_encode($resellers_data));
+
     $countrys = $wpdb->get_results("SELECT DISTINCT country FROM $table_name", ARRAY_A);
     $states = $wpdb->get_results("SELECT DISTINCT state FROM $table_name", ARRAY_A);
     $citys = $wpdb->get_results("SELECT DISTINCT city FROM $table_name", ARRAY_A);
@@ -53,18 +112,31 @@ function fr_reseller_form_shortcode() {
         .flex-wrap{
             flex-wrap: wrap;
         }
+        .flex-item-center{
+            align-items: center;
+        }
         .fr-form{
             min-width: 380px;
+            min-height: 140px;
+            padding: 5px;
         }
         .fr-zipcode{
             min-width: 220px;   
         }
+        .search-btn-zipcode{
+            height: 32px;
+            padding: 5px;
+        }
+        
     </style>
-    <div class="flex fr-form">
+    <div class="flex fr-form flex-item-center">
         <form>
-            <div class="fr-zipcode flex-column">
+            <div class="flex fr-zipcode flex-column">
                 <label for="zipcode">Procure pelo CEP</label>
-                <input type="text" name="zipcode" id="zipcode">
+                <div class="flex fr-zipcode-input flex-item-center">
+                    <input type="text" name="zipcode" id="zipcode">
+                    <button class="search-btn-zipcode" id="zipcode-search">Buscar</button>
+                </div>                
             </div>
             <div class="flex fr-filter flex-column">
                 <label>Ou localize pelo estado ou pais de sua escolha:</label>
@@ -95,6 +167,7 @@ function fr_reseller_form_shortcode() {
             
         </form>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/4.0.9/jquery.inputmask.bundle.min.js"></script>
     <?php
     $output = ob_get_clean();
     return $output;

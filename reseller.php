@@ -4,7 +4,7 @@ Plugin Name: ReSeller
 Description: Plugin de gerenciamento de revendedores para WordPress
 Version: 1.0.0
 Author: Fartech TI
-Author URI: https://farbosolutions.com/
+Author URI: https://www.farbosolutions.com.br/
 Text Domain: reseller
 */
 if (!function_exists('add_action')) {
