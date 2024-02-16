@@ -7,9 +7,33 @@ function fr_reseller_form_shortcode() {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         jQuery(document).ready(function($) {
-            let reseller_data = "DataBase";
-            
+            function fetchDataAndSaveToLocal() {
+                $.ajax({
+                    url: '<?=plugins_url('/', __FILE__).'shortcode-ajax.php';?>',
+                    type: 'POST',
+                    data: {
+                        reseller_data: 'select'
+                    },
+                    success: function(response) {
+                        var data = JSON.parse(response);
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            localStorage.setItem('resellers_data', JSON.stringify(data.resellers_data));
+                            
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+            fetchDataAndSaveToLocal();
+            var savedData = JSON.parse(localStorage.getItem('resellers_data'));
 
+            
+            
+            
             $('#zipcode').inputmask('99999-999');
 
             $('#zipcode-search').on('click', function(e) {
@@ -31,7 +55,6 @@ function fr_reseller_form_shortcode() {
                             } else {
                                 var latitudeReferencia =  data.latitude;
                                 var longitudeReferencia = data.longitude;
-                                console.log(teste)
 
                                 function calcularDistancia(lat1, lon1, lat2, lon2) {
                                     var R = 6371; // raio da Terra em km
@@ -46,7 +69,7 @@ function fr_reseller_form_shortcode() {
                                     return d;
                                 }   
 
-                                var localidades = {"stores": data.reselles_data};
+                                var localidades = {"stores": savedData};
 
                                 $(".fr-data").empty();
 
@@ -72,9 +95,11 @@ function fr_reseller_form_shortcode() {
                                     var phone2 = localidade.phone2 ? '<span class="fr-data-phone2">Tel: </span><span class="fr-data-phone2-info">' + localidade.phone2 + '</span></br>' : '';
                                     var whatsapp = localidade.whatsapp ? '<span class="fr-data-whatsapp">WhatsApp: </span><span class="fr-data-whatsapp-info">' + localidade.whatsapp + '</span></br>' : '';
                                     var fax = localidade.fax ? '<span class="fr-data-fax">Fax: </span><span class="fr-data-fax-info">' + localidade.fax + '</span></br>' : '';
-                                    var email2 = localidade.email2 ? '<span class="fr-data-email2">E-mail: </span><span class="fr-data-email2-info">' + localidade.email2 + '</span></br>' : '';
+                                    var email2 = localidade.email2 ? '<span class="fr-data-email2">E-mail: </span><a href="mailto:' + localidade.email2 + '" class="fr-data-email2-info">' + localidade.email2 + '</a></br>' : '';
+                                    var state = localidade.state ? '<span class="fr-data-country-state">'+localidade.state+' - '+localidade.country+'</span>' : '<span class="fr-data-country">'+localidade.country+'</span>';
 
                                     var html = '<div class="flex flex-column flex-50 fr-data-single">' +
+                                        state +
                                         '<div class="fr-title"><span>' + localidade.title + '</span></div>' +
                                         '<div class="fr-info">' +
                                             '<span class="fr-data-address">Endereço: </span><span class="fr-data-address-info">' + enderecoCompleto + '</span></br>' +
@@ -99,64 +124,89 @@ function fr_reseller_form_shortcode() {
                 }
             });
 
+            //PAIS
             $('#country').on('change', function() {
                 var country = $('#country').val();
                 if(country == "Brasil" || country == "BRASIL" || country == "Br" || country == "BR" || country == "br"){
                     $('#state').prop('disabled', false);
-                        $.ajax({
-                        url: '<?=plugins_url('/', __FILE__).'shortcode-ajax.php';?>',
-                        type: 'POST',
-                        data: {
-                            zipcode: '01153000'
-                        },
-                        success: function(response) {
-                            var data = JSON.parse(response);
-                            if (data.error) {
-                                alert(data.error);
-                            } else {
-                                var localidades = data.reselles_data;
-                                var count = 0;
-                                $(".fr-data").empty();
 
-                                localidades.forEach(function(localidade) {
-                                    if(country == "Brasil" || country == "BRASIL" || country == "Br" || country == "BR" || country == "br"){
-                                        if (count < 26) {
-                                            var enderecoCompleto = localidade.address + (localidade.numero ? ', ' + localidade.numero : '');
-                                            var cep = localidade.zipcode || '';
-                                            var phone2 = localidade.phone2 ? '<span class="fr-data-phone2">Tel: </span><span class="fr-data-phone2-info">' + localidade.phone2 + '</span></br>' : '';
-                                            var whatsapp = localidade.whatsapp ? '<span class="fr-data-whatsapp">WhatsApp: </span><span class="fr-data-whatsapp-info">' + localidade.whatsapp + '</span></br>' : '';
-                                            var fax = localidade.fax ? '<span class="fr-data-fax">Fax: </span><span class="fr-data-fax-info">' + localidade.fax + '</span></br>' : '';
-                                            var email2 = localidade.email2 ? '<span class="fr-data-email2">E-mail: </span><span class="fr-data-email2-info">' + localidade.email2 + '</span></br>' : '';
+                    var localidades = savedData;
+                    var count = 0;
 
-                                            var html = '<div class="flex flex-column flex-50 fr-data-single">' +
-                                                '<div class="fr-title"><span>' + localidade.title + '</span></div>' +
-                                                '<div class="fr-info">' +
-                                                '<span class="fr-data-address">Endereço: </span><span class="fr-data-address-info">' + enderecoCompleto + '</span></br>' +
-                                                '<span class="fr-data-country">País: </span><span class="fr-data-country-info">' + localidade.country + '</span></br>' +
-                                                '<span class="fr-data-zipcode">CEP: </span><span class="fr-data-zipcode-info">' + cep + '</span></br>' +
-                                                '<span class="fr-data-phone">Tel: </span><span class="fr-data-phone-info">' + localidade.phone + '</span></br>' +
-                                                phone2 +
-                                                whatsapp +
-                                                fax +
-                                                '<span class="fr-data-email">E-mail: </span><a href="mailto:' + localidade.email + '" class="fr-data-email-info">' + localidade.email + '</a></br>' +
-                                                email2 +
-                                                '</div></div>';
+                    $(".fr-data").empty();
 
-                                            $(".fr-data").append(html);
+                    localidades.forEach(function(localidade) {
+                        if(country == "Brasil" || country == "BRASIL" || country == "Br" || country == "BR" || country == "br"){
+                            if (count < 26) {
+                                var enderecoCompleto = localidade.address + (localidade.numero ? ', ' + localidade.numero : '');
+                                var cep = localidade.zipcode || '';
+                                var phone2 = localidade.phone2 ? '<span class="fr-data-phone2">Tel: </span><span class="fr-data-phone2-info">' + localidade.phone2 + '</span></br>' : '';
+                                var whatsapp = localidade.whatsapp ? '<span class="fr-data-whatsapp">WhatsApp: </span><span class="fr-data-whatsapp-info">' + localidade.whatsapp + '</span></br>' : '';
+                                var fax = localidade.fax ? '<span class="fr-data-fax">Fax: </span><span class="fr-data-fax-info">' + localidade.fax + '</span></br>' : '';
+                                var email2 = localidade.email2 ? '<span class="fr-data-email2">E-mail: </span><a href="mailto:' + localidade.email2 + '" class="fr-data-email2-info">' + localidade.email2 + '</a></br>' : '';
+                                var state = localidade.state ? '<span class="fr-data-country-state">'+localidade.state+' - '+localidade.country+'</span>' : '<span class="fr-data-country">'+localidade.country+'</span>';
 
-                                            count++;
-                                        }
-                                    }
-                                });
-                                
+                                var html = '<div class="flex flex-column flex-50 fr-data-single">' +
+                                    state +
+                                    '<div class="fr-title"><span>' + localidade.title + '</span></div>' +
+                                    '<div class="fr-info">' +
+                                    '<span class="fr-data-address">Endereço: </span><span class="fr-data-address-info">' + enderecoCompleto + '</span></br>' +
+                                    '<span class="fr-data-country">País: </span><span class="fr-data-country-info">' + localidade.country + '</span></br>' +
+                                    '<span class="fr-data-zipcode">CEP: </span><span class="fr-data-zipcode-info">' + cep + '</span></br>' +
+                                    '<span class="fr-data-phone">Tel: </span><span class="fr-data-phone-info">' + localidade.phone + '</span></br>' +
+                                    phone2 +
+                                    whatsapp +
+                                    fax +
+                                    '<span class="fr-data-email">E-mail: </span><a href="mailto:' + localidade.email + '" class="fr-data-email-info">' + localidade.email + '</a></br>' +
+                                    email2 +
+                                    '</div></div>';
+
+                                $(".fr-data").append(html);
+
+                                count++;
                             }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(xhr.responseText);
                         }
                     });
+                            
                 }else{
                     $('#state').prop('disabled', true);
+
+                    var localidades = savedData;
+                    var count = 0;
+                    $(".fr-data").empty();
+                    localidades.forEach(function(localidade) {
+                        if(localidade.country == country){
+                            if (count < 26) {
+                                var enderecoCompleto = localidade.address + (localidade.numero ? ', ' + localidade.numero : '');
+                                var cep = localidade.zipcode || '';
+                                var phone2 = localidade.phone2 ? '<span class="fr-data-phone2">Tel: </span><span class="fr-data-phone2-info">' + localidade.phone2 + '</span></br>' : '';
+                                var whatsapp = localidade.whatsapp ? '<span class="fr-data-whatsapp">WhatsApp: </span><span class="fr-data-whatsapp-info">' + localidade.whatsapp + '</span></br>' : '';
+                                var fax = localidade.fax ? '<span class="fr-data-fax">Fax: </span><span class="fr-data-fax-info">' + localidade.fax + '</span></br>' : '';
+                                var email2 = localidade.email2 ? '<span class="fr-data-email2">E-mail: </span><a href="mailto:' + localidade.email2 + '" class="fr-data-email2-info">' + localidade.email2 + '</a></br>' : '';
+                                var state = localidade.state ? '<span class="fr-data-country-state">'+localidade.state+' - '+localidade.country+'</span>' : '<span class="fr-data-country">'+localidade.country+'</span>';
+
+                                var html = '<div class="flex flex-column flex-50 fr-data-single">' +
+                                    state +
+                                    '<div class="fr-title"><span>' + localidade.title + '</span></div>' +
+                                    '<div class="fr-info">' +
+                                    '<span class="fr-data-address">Endereço: </span><span class="fr-data-address-info">' + enderecoCompleto + '</span></br>' +
+                                    '<span class="fr-data-country">País: </span><span class="fr-data-country-info">' + localidade.country + '</span></br>' +
+                                    '<span class="fr-data-zipcode">CEP: </span><span class="fr-data-zipcode-info">' + cep + '</span></br>' +
+                                    '<span class="fr-data-phone">Tel: </span><span class="fr-data-phone-info">' + localidade.phone + '</span></br>' +
+                                    phone2 +
+                                    whatsapp +
+                                    fax +
+                                    '<span class="fr-data-email">E-mail: </span><a href="mailto:' + localidade.email + '" class="fr-data-email-info">' + localidade.email + '</a></br>' +
+                                    email2 +
+                                    '</div></div>';
+
+                                $(".fr-data").append(html);
+
+                                count++;
+                            }
+                        }
+                    });
+
                 }
 
             });
@@ -166,213 +216,184 @@ function fr_reseller_form_shortcode() {
             $('#state').on('change', function() {
                 var estadoSelecionado = $(this).val();
                 $('#city').prop('disabled', false);
+                
+                var localidades = {"stores": savedData};
+                var coordenadasEstados = {
+                    "AC": [ -8.77, -70.55], 
+                    "AL": [ -9.71, -35.73],
+                    "AM": [ -3.07, -61.66],
+                    "AP": [  1.41, -51.77],
+                    "BA": [-12.96, -38.51],
+                    "CE": [ -3.71, -38.54],
+                    "DF": [-15.83, -47.86],
+                    "ES": [-19.19, -40.34],
+                    "GO": [-16.64, -49.31],
+                    "MA": [ -2.55, -44.30],
+                    "MT": [-12.64, -55.42],
+                    "MS": [-20.51, -54.54],
+                    "MG": [-18.10, -44.38],
+                    "PA": [ -5.53, -52.29],
+                    "PB": [ -7.06, -35.55],
+                    "PR": [-24.89, -51.55],
+                    "PE": [ -8.28, -35.07],
+                    "PI": [ -8.28, -43.68],
+                    "RJ": [-22.84, -43.15],
+                    "RN": [ -5.22, -36.52],
+                    "RO": [-11.22, -62.80],
+                    "RS": [-30.01, -51.22],
+                    "RR": [  1.89, -61.22],
+                    "SC": [-27.33, -49.44],
+                    "SE": [-10.90, -37.07],
+                    "SP": [-23.55, -46.64],
+                    "TO": [-10.25, -48.25],
+                };
+                            // Defina latitudeReferencia e longitudeReferencia com base no estado selecionado
+                var latitudeReferencia = coordenadasEstados[estadoSelecionado][0];
+                var longitudeReferencia = coordenadasEstados[estadoSelecionado][1];
 
-                $.ajax({
-                    url: '<?=plugins_url('/', __FILE__).'shortcode-ajax.php';?>',
-                    type: 'POST',
-                    data: {
-                        zipcode: '01153000'
-                    },
-                    success: function(response) {
-                        var data = JSON.parse(response);
-                        if (data.error) {
-                            alert(data.error);
-                        } else {
-                            var localidades = {"stores": data.reselles_data};
-                            var coordenadasEstados = {
-                                "AC": [ -8.77, -70.55], 
-                                "AL": [ -9.71, -35.73],
-                                "AM": [ -3.07, -61.66],
-                                "AP": [  1.41, -51.77],
-                                "BA": [-12.96, -38.51],
-                                "CE": [ -3.71, -38.54],
-                                "DF": [-15.83, -47.86],
-                                "ES": [-19.19, -40.34],
-                                "GO": [-16.64, -49.31],
-                                "MA": [ -2.55, -44.30],
-                                "MT": [-12.64, -55.42],
-                                "MS": [-20.51, -54.54],
-                                "MG": [-18.10, -44.38],
-                                "PA": [ -5.53, -52.29],
-                                "PB": [ -7.06, -35.55],
-                                "PR": [-24.89, -51.55],
-                                "PE": [ -8.28, -35.07],
-                                "PI": [ -8.28, -43.68],
-                                "RJ": [-22.84, -43.15],
-                                "RN": [ -5.22, -36.52],
-                                "RO": [-11.22, -62.80],
-                                "RS": [-30.01, -51.22],
-                                "RR": [  1.89, -61.22],
-                                "SC": [-27.33, -49.44],
-                                "SE": [-10.90, -37.07],
-                                "SP": [-23.55, -46.64],
-                                "TO": [-10.25, -48.25],
-                            };
-                                        // Defina latitudeReferencia e longitudeReferencia com base no estado selecionado
-                            var latitudeReferencia = coordenadasEstados[estadoSelecionado][0];
-                            var longitudeReferencia = coordenadasEstados[estadoSelecionado][1];
+                function calcularDistancia(lat1, lon1, lat2, lon2) {
+                    var R = 6371; // raio da Terra em km
+                    var dLat = (lat2 - lat1) * Math.PI / 180;
+                    var dLon = (lon2 - lon1) * Math.PI / 180;
+                    var a =
+                        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                    var d = R * c; // distância em km
+                    return d;
+                }   
 
-                            function calcularDistancia(lat1, lon1, lat2, lon2) {
-                                var R = 6371; // raio da Terra em km
-                                var dLat = (lat2 - lat1) * Math.PI / 180;
-                                var dLon = (lon2 - lon1) * Math.PI / 180;
-                                var a =
-                                    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                                    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
-                                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                                var d = R * c; // distância em km
-                                return d;
-                            }   
-
-                            localidades.stores.forEach(function(localidade) {
-                                if (localidade.latitude && localidade.longitude) {
-                                    var distancia = calcularDistancia(parseFloat(localidade.latitude), parseFloat(localidade.longitude), latitudeReferencia, longitudeReferencia);
-                                    localidade.distancia = distancia;
-                                } else {
-                                    localidade.distancia = Infinity; 
-                                }
-                            });
-
-                            localidades.stores.sort(function(a, b) {
-                                return a.distancia - b.distancia;
-                            });
-
-                            // Limitar a exibição das 26 empresas mais próximas
-                            var empresasMaisProximas = localidades.stores.slice(0, 26);
-
-                            $(".fr-data").empty();
-                            empresasMaisProximas.forEach(function(localidade) {
-                                var enderecoCompleto = localidade.address + (localidade.numero ? ', ' + localidade.numero : '');
-                                var cep = localidade.zipcode || '';
-                                var phone2 = localidade.phone2 ? '<span class="fr-data-phone2">Tel: </span><span class="fr-data-phone2-info">' + localidade.phone2 + '</span></br>' : '';
-                                var whatsapp = localidade.whatsapp ? '<span class="fr-data-whatsapp">WhatsApp: </span><span class="fr-data-whatsapp-info">' + localidade.whatsapp + '</span></br>' : '';
-                                var fax = localidade.fax ? '<span class="fr-data-fax">Fax: </span><span class="fr-data-fax-info">' + localidade.fax + '</span></br>' : '';
-                                var email2 = localidade.email2 ? '<span class="fr-data-email2">E-mail: </span><span class="fr-data-email2-info">' + localidade.email2 + '</span></br>' : '';
-
-                                var html = '<div class="flex flex-column flex-50 fr-data-single">' +
-                                    '<div class="fr-title"><span>' + localidade.title + '</span></div>' +
-                                    '<div class="fr-info">' +
-                                        '<span class="fr-data-address">Endereço: </span><span class="fr-data-address-info">' + enderecoCompleto + '</span></br>' +
-                                        '<span class="fr-data-country">País: </span><span class="fr-data-country-info">' + localidade.country + '</span></br>' +
-                                        '<span class="fr-data-zipcode">CEP: </span><span class="fr-data-zipcode-info">' + cep + '</span></br>' +
-                                        '<span class="fr-data-phone">Tel: </span><span class="fr-data-phone-info">' + localidade.phone + '</span></br>' +
-                                        phone2 +
-                                        whatsapp +
-                                        fax +
-                                        '<span class="fr-data-email">E-mail: </span><a href="mailto:' + localidade.email + '" class="fr-data-email-info">' + localidade.email + '</a></br>' +
-                                        email2 +
-                                    '</div></div>';
-
-                                $(".fr-data").append(html);
-                            }); 
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
+                localidades.stores.forEach(function(localidade) {
+                    if (localidade.latitude && localidade.longitude) {
+                        var distancia = calcularDistancia(parseFloat(localidade.latitude), parseFloat(localidade.longitude), latitudeReferencia, longitudeReferencia);
+                        localidade.distancia = distancia;
+                    } else {
+                        localidade.distancia = Infinity; 
                     }
-                 });
+                });
+
+                localidades.stores.sort(function(a, b) {
+                    return a.distancia - b.distancia;
+                });
+
+                // Limitar a exibição das 26 empresas mais próximas
+                var empresasMaisProximas = localidades.stores.slice(0, 26);
+
+                $(".fr-data").empty();
+                empresasMaisProximas.forEach(function(localidade) {
+                    var enderecoCompleto = localidade.address + (localidade.numero ? ', ' + localidade.numero : '');
+                    var cep = localidade.zipcode || '';
+                    var phone2 = localidade.phone2 ? '<span class="fr-data-phone2">Tel: </span><span class="fr-data-phone2-info">' + localidade.phone2 + '</span></br>' : '';
+                    var whatsapp = localidade.whatsapp ? '<span class="fr-data-whatsapp">WhatsApp: </span><span class="fr-data-whatsapp-info">' + localidade.whatsapp + '</span></br>' : '';
+                    var fax = localidade.fax ? '<span class="fr-data-fax">Fax: </span><span class="fr-data-fax-info">' + localidade.fax + '</span></br>' : '';
+                    var email2 = localidade.email2 ? '<span class="fr-data-email2">E-mail: </span><a href="mailto:' + localidade.email2 + '" class="fr-data-email2-info">' + localidade.email2 + '</a></br>' : '';
+                    var state = localidade.state ? '<span class="fr-data-country-state">'+localidade.state+' - '+localidade.country+'</span>' : '<span class="fr-data-country">'+localidade.country+'</span>';
+
+                    var html = '<div class="flex flex-column flex-50 fr-data-single">' +
+                        state +
+                        '<div class="fr-title"><span>' + localidade.title + '</span></div>' +
+                        '<div class="fr-info">' +
+                            '<span class="fr-data-address">Endereço: </span><span class="fr-data-address-info">' + enderecoCompleto + '</span></br>' +
+                            '<span class="fr-data-country">País: </span><span class="fr-data-country-info">' + localidade.country + '</span></br>' +
+                            '<span class="fr-data-zipcode">CEP: </span><span class="fr-data-zipcode-info">' + cep + '</span></br>' +
+                            '<span class="fr-data-phone">Tel: </span><span class="fr-data-phone-info">' + localidade.phone + '</span></br>' +
+                            phone2 +
+                            whatsapp +
+                            fax +
+                            '<span class="fr-data-email">E-mail: </span><a href="mailto:' + localidade.email + '" class="fr-data-email-info">' + localidade.email + '</a></br>' +
+                            email2 +
+                        '</div></div>';
+
+                    $(".fr-data").append(html);
+                }); 
+                        
+ 
             });
 
+
+            //cidade
             $('#city').on('change', function() {
                 var cidadeSelecionada = $(this).val();
+                
+                var localidades = {"stores": savedData};
                 $.ajax({
-                    url: '<?=plugins_url('/', __FILE__).'shortcode-ajax.php';?>',
-                    type: 'POST',
-                    data: {
-                        zipcode: '01153000'
-                    },
-                    success: function(response) {
-                        var data = JSON.parse(response);
-                        if (data.error) {
-                            alert(data.error);
+                    url: '<?=plugins_url('/', __FILE__).'cidades.json';?>', // Substitua 'cidades.json' pelo caminho do seu arquivo JSON
+                    dataType: 'json',
+                    success: function(data) {
+                        var coordenadasCidades = data; // Supondo que o arquivo JSON já tenha um formato de objeto com as coordenadas das cidades
+
+                        // Verifique se a cidade selecionada existe no arquivo JSON
+                        if (coordenadasCidades.hasOwnProperty(cidadeSelecionada)) {
+                            var latitudeReferencia = coordenadasCidades[cidadeSelecionada][0];
+                            var longitudeReferencia = coordenadasCidades[cidadeSelecionada][1];
+
+                            function calcularDistancia(lat1, lon1, lat2, lon2) {
+                            var R = 6371; // raio da Terra em km
+                            var dLat = (lat2 - lat1) * Math.PI / 180;
+                            var dLon = (lon2 - lon1) * Math.PI / 180;
+                            var a =
+                                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                            var d = R * c; // distância em km
+                            return d;
+                        }   
+
+                        localidades.stores.forEach(function(localidade) {
+                            if (localidade.latitude && localidade.longitude) {
+                                var distancia = calcularDistancia(parseFloat(localidade.latitude), parseFloat(localidade.longitude), latitudeReferencia, longitudeReferencia);
+                                localidade.distancia = distancia;
+                            } else {
+                                localidade.distancia = Infinity; 
+                            }
+                        });
+
+                        localidades.stores.sort(function(a, b) {
+                            return a.distancia - b.distancia;
+                        });
+
+                        // Limitar a exibição das 26 empresas mais próximas
+                        var empresasMaisProximas = localidades.stores.slice(0, 26);
+
+                        $(".fr-data").empty();
+                        empresasMaisProximas.forEach(function(localidade) {
+                            var enderecoCompleto = localidade.address + (localidade.numero ? ', ' + localidade.numero : '');
+                            var cep = localidade.zipcode || '';
+                            var phone2 = localidade.phone2 ? '<span class="fr-data-phone2">Tel: </span><span class="fr-data-phone2-info">' + localidade.phone2 + '</span></br>' : '';
+                            var whatsapp = localidade.whatsapp ? '<span class="fr-data-whatsapp">WhatsApp: </span><span class="fr-data-whatsapp-info">' + localidade.whatsapp + '</span></br>' : '';
+                            var fax = localidade.fax ? '<span class="fr-data-fax">Fax: </span><span class="fr-data-fax-info">' + localidade.fax + '</span></br>' : '';
+                            var email2 = localidade.email2 ? '<span class="fr-data-email2">E-mail: </span><a href="mailto:' + localidade.email2 + '" class="fr-data-email2-info">' + localidade.email2 + '</a></br>' : '';
+                            var state = localidade.state ? '<span class="fr-data-country-state">'+localidade.state+' - '+localidade.country+'</span>' : '<span class="fr-data-country">'+localidade.country+'</span>';
+
+                            var html = '<div class="flex flex-column flex-50 fr-data-single">' +
+                                state +
+                                '<div class="fr-title"><span>' + localidade.title + '</span></div>' +
+                                '<div class="fr-info">' +
+                                    '<span class="fr-data-address">Endereço: </span><span class="fr-data-address-info">' + enderecoCompleto + '</span></br>' +
+                                    '<span class="fr-data-country">País: </span><span class="fr-data-country-info">' + localidade.country + '</span></br>' +
+                                    '<span class="fr-data-zipcode">CEP: </span><span class="fr-data-zipcode-info">' + cep + '</span></br>' +
+                                    '<span class="fr-data-phone">Tel: </span><span class="fr-data-phone-info">' + localidade.phone + '</span></br>' +
+                                    phone2 +
+                                    whatsapp +
+                                    fax +
+                                    '<span class="fr-data-email">E-mail: </span><a href="mailto:' + localidade.email + '" class="fr-data-email-info">' + localidade.email + '</a></br>' +
+                                    email2 +
+                                '</div></div>';
+
+                            $(".fr-data").append(html);
+                        });
+
+                            // Agora você pode usar latitude e longitude conforme necessário em seu código
                         } else {
-                            var localidades = {"stores": data.reselles_data};
-                            $.ajax({
-                                url: '<?=plugins_url('/', __FILE__).'cidades.json';?>', // Substitua 'cidades.json' pelo caminho do seu arquivo JSON
-                                dataType: 'json',
-                                success: function(data) {
-                                    var coordenadasCidades = data; // Supondo que o arquivo JSON já tenha um formato de objeto com as coordenadas das cidades
-
-                                    // Verifique se a cidade selecionada existe no arquivo JSON
-                                    if (coordenadasCidades.hasOwnProperty(cidadeSelecionada)) {
-                                        var latitudeReferencia = coordenadasCidades[cidadeSelecionada][0];
-                                        var longitudeReferencia = coordenadasCidades[cidadeSelecionada][1];
-
-                                        function calcularDistancia(lat1, lon1, lat2, lon2) {
-                                        var R = 6371; // raio da Terra em km
-                                        var dLat = (lat2 - lat1) * Math.PI / 180;
-                                        var dLon = (lon2 - lon1) * Math.PI / 180;
-                                        var a =
-                                            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                                            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                                            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-                                        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                                        var d = R * c; // distância em km
-                                        return d;
-                                    }   
-
-                                    localidades.stores.forEach(function(localidade) {
-                                        if (localidade.latitude && localidade.longitude) {
-                                            var distancia = calcularDistancia(parseFloat(localidade.latitude), parseFloat(localidade.longitude), latitudeReferencia, longitudeReferencia);
-                                            localidade.distancia = distancia;
-                                        } else {
-                                            localidade.distancia = Infinity; 
-                                        }
-                                    });
-
-                                    localidades.stores.sort(function(a, b) {
-                                        return a.distancia - b.distancia;
-                                    });
-
-                                    // Limitar a exibição das 26 empresas mais próximas
-                                    var empresasMaisProximas = localidades.stores.slice(0, 26);
-
-                                    $(".fr-data").empty();
-                                    empresasMaisProximas.forEach(function(localidade) {
-                                        var enderecoCompleto = localidade.address + (localidade.numero ? ', ' + localidade.numero : '');
-                                        var cep = localidade.zipcode || '';
-                                        var phone2 = localidade.phone2 ? '<span class="fr-data-phone2">Tel: </span><span class="fr-data-phone2-info">' + localidade.phone2 + '</span></br>' : '';
-                                        var whatsapp = localidade.whatsapp ? '<span class="fr-data-whatsapp">WhatsApp: </span><span class="fr-data-whatsapp-info">' + localidade.whatsapp + '</span></br>' : '';
-                                        var fax = localidade.fax ? '<span class="fr-data-fax">Fax: </span><span class="fr-data-fax-info">' + localidade.fax + '</span></br>' : '';
-                                        var email2 = localidade.email2 ? '<span class="fr-data-email2">E-mail: </span><span class="fr-data-email2-info">' + localidade.email2 + '</span></br>' : '';
-
-                                        var html = '<div class="flex flex-column flex-50 fr-data-single">' +
-                                            '<div class="fr-title"><span>' + localidade.title + '</span></div>' +
-                                            '<div class="fr-info">' +
-                                                '<span class="fr-data-address">Endereço: </span><span class="fr-data-address-info">' + enderecoCompleto + '</span></br>' +
-                                                '<span class="fr-data-country">País: </span><span class="fr-data-country-info">' + localidade.country + '</span></br>' +
-                                                '<span class="fr-data-zipcode">CEP: </span><span class="fr-data-zipcode-info">' + cep + '</span></br>' +
-                                                '<span class="fr-data-phone">Tel: </span><span class="fr-data-phone-info">' + localidade.phone + '</span></br>' +
-                                                phone2 +
-                                                whatsapp +
-                                                fax +
-                                                '<span class="fr-data-email">E-mail: </span><a href="mailto:' + localidade.email + '" class="fr-data-email-info">' + localidade.email + '</a></br>' +
-                                                email2 +
-                                            '</div></div>';
-
-                                        $(".fr-data").append(html);
-                                    });
-
-                                        // Agora você pode usar latitude e longitude conforme necessário em seu código
-                                    } else {
-                                        console.error("Coordenadas não encontradas para a cidade selecionada");
-                                    }
-                                },
-                                error: function(xhr, status, error) {
-                                    console.error("Erro ao carregar o arquivo JSON:", error);
-                                }
-                            });
-                                        // Defina latitudeReferencia e longitudeReferencia com base no estado selecionado
-
-                             
+                            console.error("Coordenadas não encontradas para a cidade selecionada");
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
+                        console.error("Erro ao carregar o arquivo JSON:", error);
                     }
-                 });
-                
+                });
             });
         });
 

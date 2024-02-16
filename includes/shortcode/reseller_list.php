@@ -10,6 +10,7 @@ function fr_reseller_list_shortcode(){
         foreach ($resellers as $reseller):
         ?>
         <div class="flex flex-column flex-50 fr-data-single">
+            <span><?= ($reseller['country'] == 'Brasil' || $reseller['country'] == 'Br') ? $reseller['state'].' - '.$reseller['country'] : $reseller['country'] ?></span>
             <div class="fr-title"><span><?=$reseller['title']?></span></div>
             <div class="fr-info">
                 <span class="fr-data-address">Endereço: </span><span class="fr-data-address-info"><?=$reseller['address']?><?=(isset($reseller['numero']) && !empty($reseller['numero'])) ? ', '.$reseller['numero'] : '' ;?></span><br/>
@@ -25,9 +26,9 @@ function fr_reseller_list_shortcode(){
                 <?=(isset($reseller['fax']) && !empty($reseller['fax'])) ? 
                 '<span class="fr-data-fax">Fax: </span><span class="fr-data-fax-info">'.$reseller['fax'].'</span></br>' : 
                 '' ;?>
-                <span class="fr-data-email">E-mail: </span><a href="mailto:<?=$reseller['email']?>" class="fr-data-email-info"><?=$reseller['email']?></a>
+                <span class="fr-data-email">E-mail: </span><a href="mailto:<?=$reseller['email']?>" class="fr-data-email-info"><?=$reseller['email']?></a></br>
                 <?=(isset($reseller['email2']) && !empty($reseller['email2'])) ? 
-                '<span class="fr-data-email2">Email: </span><span class="fr-data-email2-info">'.$reseller['email2'].'</span></br>' : 
+                '<span class="fr-data-email2">E-mail: </span><a href="mailto:'.$reseller['email2'].'" class="fr-data-email2-info">'.$reseller['email2'].'</a></br>' : 
                 '' ;?>
             </div>
         </div>
