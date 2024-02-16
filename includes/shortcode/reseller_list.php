@@ -6,7 +6,7 @@ function fr_reseller_list_shortcode(){
         <?php
         global $wpdb;
         $table_name = $wpdb->prefix . 'reseller_data';
-        $resellers = $wpdb->get_results("SELECT DISTINCT * FROM $table_name", ARRAY_A);
+        $resellers = $wpdb->get_results("SELECT DISTINCT * FROM $table_name LIMIT 26", ARRAY_A);
         foreach ($resellers as $reseller):
         ?>
         <div class="flex flex-column flex-50 fr-data-single">
@@ -27,7 +27,7 @@ function fr_reseller_list_shortcode(){
                 '' ;?>
                 <span class="fr-data-email">E-mail: </span><a href="mailto:<?=$reseller['email']?>" class="fr-data-email-info"><?=$reseller['email']?></a>
                 <?=(isset($reseller['email2']) && !empty($reseller['email2'])) ? 
-                '<span class="fr-data-email2">Fax: </span><span class="fr-data-email2-info">'.$reseller['email2'].'</span></br>' : 
+                '<span class="fr-data-email2">Email: </span><span class="fr-data-email2-info">'.$reseller['email2'].'</span></br>' : 
                 '' ;?>
             </div>
         </div>

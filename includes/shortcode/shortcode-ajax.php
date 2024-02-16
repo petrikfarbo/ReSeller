@@ -2,7 +2,6 @@
 // Inicia o buffer de saída
 ob_start(); 
 // Dados da requisição
-$_POST['zipcode'] = '13876854';
 if (isset($_POST['zipcode'])) {
     $cep = $_POST['zipcode'];
 
