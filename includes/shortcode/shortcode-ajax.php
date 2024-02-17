@@ -11,7 +11,7 @@ if (isset($_POST['reseller_data'])) {
     }
 
     $table_name = $wpdb->prefix . 'reseller_data';
-    $resellers_data = $wpdb->get_results("SELECT * FROM $table_name", ARRAY_A);
+    $resellers_data = $wpdb->get_results("SELECT * FROM $table_name ORDER BY title ASC", ARRAY_A);
 
     if ($wpdb->last_error) {
         echo "Ocorreu um erro ao tentar recuperar os dados: " . $wpdb->last_error;

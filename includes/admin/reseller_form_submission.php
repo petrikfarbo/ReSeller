@@ -16,23 +16,23 @@ function fr_reseller_form_submission() {
 
     $table_name = $wpdb->prefix . 'reseller_data';
 
-    // Coletar dados do formulário
-    $codigo = $_POST['codigo'];
-    $title = $_POST['title'];
-    $country = $_POST['country'];
-    $state = $_POST['state'];
-    $city = $_POST['city'];
-    $address = $_POST['address'];
-    $numero = $_POST['numero'];
-    $zipcode = $_POST['zipcode'];
-    $phone = $_POST['phone'];
-    $phone2 = $_POST['phone2'];
-    $whatsapp = $_POST['whatsapp'];
-    $fax = $_POST['fax'];
-    $email = $_POST['email'];
-    $email2 = $_POST['email2'];
-    $latitude = $_POST['latitude'];
-    $longitude = $_POST['longitude'];
+    // Coletar e sanitizar dados do formulário
+    $codigo = sanitize_text_field($_POST['codigo']);
+    $title = strtoupper(sanitize_text_field($_POST['title']));
+    $country = ucwords(sanitize_text_field($_POST['country']));
+    $state = ucwords(sanitize_text_field($_POST['state']));
+    $city = ucwords(sanitize_text_field($_POST['city']));
+    $address = ucwords(sanitize_text_field($_POST['address']));
+    $numero = sanitize_text_field($_POST['numero']);
+    $zipcode = sanitize_text_field($_POST['zipcode']);
+    $phone = sanitize_text_field($_POST['phone']);
+    $phone2 = sanitize_text_field($_POST['phone2']);
+    $whatsapp = sanitize_text_field($_POST['whatsapp']);
+    $fax = sanitize_text_field($_POST['fax']);
+    $email = sanitize_email($_POST['email']);
+    $email2 = sanitize_email($_POST['email2']);
+    $latitude = sanitize_text_field($_POST['latitude']);
+    $longitude = sanitize_text_field($_POST['longitude']);
     $tratores = isset($_POST['tratores']) ? 1 : 0;
     $implementos = isset($_POST['implementos']) ? 1 : 0;
     $pecas = isset($_POST['pecas']) ? 1 : 0;

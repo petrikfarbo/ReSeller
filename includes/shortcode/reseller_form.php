@@ -4,6 +4,7 @@ function fr_reseller_form_shortcode() {
     global $wpdb;
     $table_name = $wpdb->prefix . 'reseller_data';
     ?>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         jQuery(document).ready(function($) {
@@ -28,11 +29,7 @@ function fr_reseller_form_shortcode() {
                     }
                 });
             }
-
-            // Chama a função para buscar dados e salvá-los localmente
             fetchDataAndSaveToLocal();
-
-            // Obtém os dados salvos localmente
             var savedData = JSON.parse(localStorage.getItem('resellers_data'))
 
             // Verifica se savedData é um array
@@ -41,9 +38,9 @@ function fr_reseller_form_shortcode() {
                 savedData = JSON.parse(localStorage.getItem('resellers_data'));
             }
 
-            // Aplica a máscara de input para CEP
-            $('#zipcode').inputmask('99999-999');
 
+
+            $('#zipcode').inputmask('99999-999');
             // Função para calcular a distância entre duas coordenadas geográficas
             function calcularDistancia(lat1, lon1, lat2, lon2) {
                 var R = 6371; // raio da Terra em km
@@ -68,7 +65,14 @@ function fr_reseller_form_shortcode() {
                     var whatsapp = localidade.whatsapp ? '<span class="fr-data-whatsapp">WhatsApp: </span><span class="fr-data-whatsapp-info">' + localidade.whatsapp + '</span></br>' : '';
                     var fax = localidade.fax ? '<span class="fr-data-fax">Fax: </span><span class="fr-data-fax-info">' + localidade.fax + '</span></br>' : '';
                     var email2 = localidade.email2 ? '<span class="fr-data-email2">E-mail: </span><a href="mailto:' + localidade.email2 + '" class="fr-data-email2-info">' + localidade.email2 + '</a></br>' : '';
-                    var state = localidade.state ? '<span class="fr-data-country-state">'+localidade.state+' - '+localidade.country+'</span>' : '<span class="fr-data-country">'+localidade.country+'</span>';
+                    var state = localidade.state ? '<span class="fr-data-country-state">'+localidade.city+' - '+localidade.state+'</span>' : '<span class="fr-data-country">'+localidade.city+'</span>';
+
+                    // Verifica se tratores é 1 e inclui o ícone
+                    var tratoresIcon = localidade.tratores == 1 ? '<i class="fas fa-tractor"></i><span class="fr_tractor"> Trator</span>' : '';
+                    // Verifica se implementos é 1 e inclui o ícone
+                    var implementosIcon = localidade.implementos == 1 ? '<i class="fa-solid fa-toolbox"></i><span class="fr_tools"> Implementos</span>' : '';
+                    // Verifica se peças é 1 e inclui o ícone
+                    var pecasIcon = localidade.pecas == 1 ? '<i class="fas fa-cogs"></i><span class="fr_cogs"> Peças</span>' : '';
 
                     var html = '<div class="flex flex-column flex-50 fr-data-single">' +
                         state +
@@ -83,10 +87,34 @@ function fr_reseller_form_shortcode() {
                             fax +
                             '<span class="fr-data-email">E-mail: </span><a href="mailto:' + localidade.email + '" class="fr-data-email-info">' + localidade.email + '</a></br>' +
                             email2 +
+                            // Inclui os ícones de trator, implemento e peças
+                            '<div>' + tratoresIcon + ' ' + implementosIcon + ' ' + pecasIcon + '</div>' +
                         '</div></div>';
 
                     $(".fr-data").append(html);
                 });
+            }
+
+
+            // Função para carregar as cidades de acordo com o estado selecionado
+            function loadingCity(state) {
+                // Limpa o conteúdo do select de cidades
+                $("#city").empty();
+
+                // Opção "Selecione"
+                $("#city").append("<option value=''>Cidade</option>");
+
+            // Requisição para API do IBGE
+            $.ajax({
+                url: "https://servicodados.ibge.gov.br/api/v1/localidades/estados/" + state + "/municipios",
+                dataType: "json",
+                success: function(data) {
+                // Loop para adicionar as cidades do estado selecionado
+                for (var i = 0; i < data.length; i++) {
+                    $("#city").append("<option value='" + data[i].nome + "'>" + data[i].nome + "</option>");
+                }
+                }
+            });
             }
 
             // Evento ao clicar no botão de busca por CEP
@@ -150,8 +178,11 @@ function fr_reseller_form_shortcode() {
                     $('#state').prop('disabled', true);
                 }
 
-                // Filtrar empresas pelo país selecionado
-                var localidades = savedData.filter(function(localidade) {
+                    // Filtrar empresas pelo país selecionado
+                    fetchDataAndSaveToLocal();
+                    savedData = JSON.parse(localStorage.getItem('resellers_data'));
+
+                    var localidades = savedData.filter(function(localidade) {
                     return localidade.country.toUpperCase() === country.toUpperCase();
                 });
 
@@ -162,6 +193,10 @@ function fr_reseller_form_shortcode() {
             $('#state').on('change', function() {
                 var estadoSelecionado = $(this).val();
                 $('#city').prop('disabled', false);
+
+                loadingCity(estadoSelecionado);
+                fetchDataAndSaveToLocal();
+                savedData = JSON.parse(localStorage.getItem('resellers_data'));
 
                 var localidades = {"stores": savedData};
                 var coordenadasEstados = {
@@ -219,6 +254,8 @@ function fr_reseller_form_shortcode() {
             // Evento ao alterar a cidade
             $('#city').on('change', function() {
                 var cidadeSelecionada = $(this).val();
+                fetchDataAndSaveToLocal();
+                savedData = JSON.parse(localStorage.getItem('resellers_data'));
 
                 var localidades = {"stores": savedData};
                 $.ajax({
@@ -265,8 +302,6 @@ function fr_reseller_form_shortcode() {
     file_put_contents('wp-content/plugins/reseller/includes/shortcode/resellers.json', json_encode($resellers_data));
 
     $countrys = $wpdb->get_results("SELECT DISTINCT country FROM $table_name", ARRAY_A);
-    $states = $wpdb->get_results("SELECT DISTINCT state FROM $table_name", ARRAY_A);
-    $citys = $wpdb->get_results("SELECT DISTINCT city FROM $table_name ORDER BY city ASC", ARRAY_A);
     ?>
     <style>
         .flex{
@@ -319,14 +354,14 @@ function fr_reseller_form_shortcode() {
             <div class="flex fr-filter flex-column">
                 <label>Ou localize pelo estado ou pais de sua escolha:</label>
                 <div class="flex fr-form-opt">
-                    <select name="country" id="country" aria-placeholder="País">
+                    <select class="fr-from-country flex-1" name="country" id="country" aria-placeholder="País" >
                         <option value="">País</option>
                         <?php foreach ($countrys as $country){
                             echo '<option value="'.$country['country'].'">'.$country['country'].'</option>';
                         }
                         ?>
                     </select>
-                    <select name="state" id="state" aria-placeholder="Estado" disabled>
+                    <select class="fr-from-state flex-1" name="state" id="state" aria-placeholder="Estado" disabled>
                         <option value="">Estado</option>
                         <option value="AC">Acre</option>
                         <option value="AL">Alagoas</option>
@@ -356,12 +391,8 @@ function fr_reseller_form_shortcode() {
                         <option value="SP">São Paulo</option>
                         <option value="TO">Tocantins</option>
                     </select>
-                    <select name="city" id="city" aria-placeholder="Cidade" disabled>
+                    <select class="fr-from-city flex-1" name="city" id="city" aria-placeholder="Cidade" disabled>
                         <option value="">Cidade</option>
-                        <?php foreach ($citys as $city){
-                                echo '<option value="'.$city['city'].'">'.$city['city'].'</option>';
-                            }
-                        ?>
                     </select>
                 </div>
             </div>

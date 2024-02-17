@@ -20,15 +20,15 @@ function fr_reseller_admin_page() {
     ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        p.search-box{
+        p.search-box {
             float: left;
             margin-top: 10px;
             margin-bottom: 10px;
         }
     </style>
-    
+
     <div class="wrap">
-        <h1 class="wp-heading-inline">ReSeller - Lista</h1><br/><br/>
+        <h1 class="wp-heading-inline">ReSeller - Lista</h1><br /><br />
         <a href="<?php echo admin_url('admin.php?page=fr_reseller_cadastrar'); ?>" class="page-title-action">Adicionar Novo</a>
         <form method="get" action="">
             <input type="hidden" name="page" value="fr_reseller">
@@ -37,7 +37,7 @@ function fr_reseller_admin_page() {
                 <input type="text" id="search_code" name="search_code" value="<?php echo esc_attr($search_code); ?>" placeholder="Pesquisar por Código">
                 <label class="screen-reader-text" for="search_name">Pesquisar por Nome:</label>
                 <input type="text" id="search_name" name="search_name" value="<?php echo esc_attr($search_name); ?>" placeholder="Pesquisar por Nome">
-                
+
                 <input type="submit" id="search-submit" class="button" value="Pesquisar Revendedoras">
             </p>
         </form>
@@ -54,7 +54,7 @@ function fr_reseller_admin_page() {
                     <th>Telefone</th>
                     <th>Email</th>
                     <th>Tratores</th>
-                    <th>implementos</th>
+                    <th>Implementos</th>
                     <th>Peças</th>
                     <th colspan="2"><center>Ações</center></th>
                 </tr>
@@ -77,7 +77,7 @@ function fr_reseller_admin_page() {
                         echo "<td><center>" . ($reseller['implementos'] == 1 ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>') . "</center></td>";
                         echo "<td><center>" . ($reseller['pecas'] == 1 ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>') . "</center></td>";
                         echo "<td><center><a href='" . admin_url('admin.php?page=fr_reseller_cadastrar&reseller_id=' . $reseller['id']) . "'>Editar</a></td>";
-                        echo "<td><center><a href='" . admin_url('admin.php?page=fr_reseller_cadastrar&reseller_id=' . $reseller['id']) . "'>Excluir</a></td>";
+                        echo "<td><center><a href='" . wp_nonce_url(admin_url('admin-post.php?action=fr_reseller_delete&reseller_id=' . $reseller['id']), 'fr_reseller_delete_' . $reseller['id']) . "' onclick=\"return confirm('Tem certeza de que deseja excluir este revendedor?');\">Excluir</a></td>";
                         echo "</center></tr>";
                     }
                 } else {
@@ -87,5 +87,36 @@ function fr_reseller_admin_page() {
             </tbody>
         </table>
     </div>
-    <?php
+<?php
+}
+
+// Conectando a função de exclusão ao hook de ação admin_post
+add_action('admin_post_fr_reseller_delete', 'fr_reseller_delete');
+
+// Função para excluir revendedor
+function fr_reseller_delete() {
+    if (!current_user_can('edit_theme_options')) {
+        wp_die('Erro de segurança - Usuário sem permissão.');
+    }
+
+    if (isset($_GET['reseller_id']) && isset($_GET['_wpnonce'])) {
+        $reseller_id = intval($_GET['reseller_id']);
+        $nonce = $_GET['_wpnonce'];
+
+        if (wp_verify_nonce($nonce, 'fr_reseller_delete_' . $reseller_id)) {
+            global $wpdb;
+            $table_name = $wpdb->prefix . 'reseller_data';
+
+            // Deleta o revendedor do banco de dados
+            $wpdb->delete($table_name, array('id' => $reseller_id));
+
+            // Redireciona de volta para a página de listagem após a exclusão
+            wp_redirect(admin_url('admin.php?page=fr_reseller'));
+            exit;
+        } else {
+            wp_die('Erro de segurança - Nonce inválido.');
+        }
+    } else {
+        wp_die('Erro de segurança - Parâmetros inválidos.');
+    }
 }

@@ -32,9 +32,6 @@ function fr_activate_plugin() {
   // Executar a consulta SQL
   require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
   dbDelta($sql);
-
-
-    
 }
 function fr_deactivate_plugin() {
 

@@ -203,13 +203,18 @@ function fr_reseller_cadastrar_page(){
     </script>
     <script>
         jQuery(document).ready(function($) {
-            $('#phone').inputmask('(99) 9 9999-9999');
+            $('#country').on('change', function() {
+                var country = $(this).val();
+                if(country == "Brasil" || country == "BRASIL" || country == "Br" || country == "BR" || country == "br"){
+                    $('#phone').inputmask('(99) 9 9999-9999');
 
-            $('#whatsapp').inputmask('(99) 9 9999-9999');
+                    $('#whatsapp').inputmask('(99) 9 9999-9999');
 
-            $('#fax').inputmask('(99) 9999-9999');
+                    $('#fax').inputmask('(99) 9999-9999');
 
-            $('#zipcode').inputmask('99999-999');
+                    $('#zipcode').inputmask('99999-999');
+                }
+            });
         });
     </script>
 
