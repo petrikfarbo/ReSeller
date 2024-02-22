@@ -9,7 +9,7 @@ function fr_reseller_form_shortcode() {
     <script>
         jQuery(document).ready(function($) {
             // Função para buscar dados e salvá-los localmente
-            function fetchDataAndSaveToLocal() {
+            function fetchDataAndSaveToSession() {
                 $.ajax({
                     url: '<?=plugins_url('/', __FILE__).'shortcode-ajax.php';?>',
                     type: 'POST',
@@ -21,7 +21,7 @@ function fr_reseller_form_shortcode() {
                         if (data.error) {
                             alert(data.error);
                         } else {
-                            localStorage.setItem('resellers_data', JSON.stringify(data.resellers_data));
+                            sessionStorage.setItem('resellers_data', JSON.stringify(data.resellers_data));
                         }
                     },
                     error: function(xhr, status, error) {
@@ -29,15 +29,14 @@ function fr_reseller_form_shortcode() {
                     }
                 });
             }
-            fetchDataAndSaveToLocal();
-            var savedData = JSON.parse(localStorage.getItem('resellers_data'))
+            fetchDataAndSaveToSession();
+            var savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
 
             // Verifica se savedData é um array
             if (!Array.isArray(savedData)) {
-                fetchDataAndSaveToLocal();
-                savedData = JSON.parse(localStorage.getItem('resellers_data'));
+                fetchDataAndSaveToSession();
+                savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
             }
-
 
 
             $('#zipcode').inputmask('99999-999');
@@ -135,8 +134,8 @@ function fr_reseller_form_shortcode() {
                             if (data.error) {
                                 alert(data.error);
                             } else {
-                                fetchDataAndSaveToLocal();
-                                savedData = JSON.parse(localStorage.getItem('resellers_data'));
+                                fetchDataAndSaveToSession();
+                                var savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
                                 
                                 var latitudeReferencia = data.latitude;
                                 var longitudeReferencia = data.longitude;
@@ -179,8 +178,8 @@ function fr_reseller_form_shortcode() {
                 }
 
                     // Filtrar empresas pelo país selecionado
-                    fetchDataAndSaveToLocal();
-                    savedData = JSON.parse(localStorage.getItem('resellers_data'));
+                    fetchDataAndSaveToSession();
+                    var savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
 
                     var localidades = savedData.filter(function(localidade) {
                     return localidade.country.toUpperCase() === country.toUpperCase();
@@ -195,8 +194,8 @@ function fr_reseller_form_shortcode() {
                 $('#city').prop('disabled', false);
 
                 loadingCity(estadoSelecionado);
-                fetchDataAndSaveToLocal();
-                savedData = JSON.parse(localStorage.getItem('resellers_data'));
+                fetchDataAndSaveToSession();
+                var savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
 
                 var localidades = {"stores": savedData};
                 var coordenadasEstados = {
@@ -254,8 +253,8 @@ function fr_reseller_form_shortcode() {
             // Evento ao alterar a cidade
             $('#city').on('change', function() {
                 var cidadeSelecionada = $(this).val();
-                fetchDataAndSaveToLocal();
-                savedData = JSON.parse(localStorage.getItem('resellers_data'));
+                fetchDataAndSaveToSession();
+                var savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
 
                 var localidades = {"stores": savedData};
                 $.ajax({
