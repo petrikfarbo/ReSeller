@@ -154,7 +154,7 @@ function fr_reseller_cadastrar_page(){
                             </table>
 
                             <p class="submit">
-                                <input type="submit" name="submit" id="submit" class="button button-primary" value="Cadastrar Empresa">
+                                <input type="submit" name="submit" id="submit" class="button button-primary" value="Atualizar Empresa">
                             </p>
                         </form>
 
