@@ -1,5 +1,5 @@
 <?php
-function fr_reseller_form_shortcode() {
+function fr_reseller_form_es_shortcode() {
     ob_start(); 
     global $wpdb;
     $table_name = $wpdb->prefix . 'reseller_data';
@@ -39,6 +39,7 @@ function fr_reseller_form_shortcode() {
             }
 
 
+
             $('#zipcode').inputmask('99999-999');
             // Função para calcular a distância entre duas coordenadas geográficas
             function calcularDistancia(lat1, lon1, lat2, lon2) {
@@ -53,44 +54,121 @@ function fr_reseller_form_shortcode() {
                 var d = R * c; // distância em km
                 return d;
             }
+            function getNameState(sigla) {
+                switch (sigla) {
+                    case "AC":
+                        return "Acre";
+                    case "AL":
+                        return "Alagoas";
+                    case "AP":
+                        return "Amapá";
+                    case "AM":
+                        return "Amazonas";
+                    case "BA":
+                        return "Bahia";
+                    case "CE":
+                        return "Ceará";
+                    case "DF":
+                        return "Distrito Federal";
+                    case "ES":
+                        return "Espírito Santo";
+                    case "GO":
+                        return "Goiás";
+                    case "MA":
+                        return "Maranhão";
+                    case "MT":
+                        return "Mato Grosso";
+                    case "MS":
+                        return "Mato Grosso do Sul";
+                    case "MG":
+                        return "Minas Gerais";
+                    case "PA":
+                        return "Pará";
+                    case "PB":
+                        return "Paraíba";
+                    case "PR":
+                        return "Paraná";
+                    case "PE":
+                        return "Pernambuco";
+                    case "PI":
+                        return "Piauí";
+                    case "RJ":
+                        return "Rio de Janeiro";
+                    case "RN":
+                        return "Rio Grande do Norte";
+                    case "RS":
+                        return "Rio Grande do Sul";
+                    case "RO":
+                        return "Rondônia";
+                    case "RR":
+                        return "Roraima";
+                    case "SC":
+                        return "Santa Catarina";
+                    case "SE":
+                        return "Sergipe";
+                    case "SP":
+                        return "São Paulo";
+                    case "TO":
+                        return "Tocantins";
+                    default:
+                        return null;
+                }
+            }
+
+
 
             // Função para preencher os dados da interface com as empresas mais próximas
             function fillClosestCompanies(localidades) {
                 $(".fr-data").empty();
+                
+                
                 localidades.forEach(function(localidade) {
+                    var nomeEstado = getNameState(localidade.state);
+                    
                     var enderecoCompleto = localidade.address + (localidade.numero ? ', ' + localidade.numero : '');
                     var cep = localidade.zipcode || '';
-                    var phone2 = localidade.phone2 ? '<span class="fr-data-phone2">Tel: </span><span class="fr-data-phone2-info">' + localidade.phone2 + '</span></br>' : '';
-                    var whatsapp = localidade.whatsapp ? '<span class="fr-data-whatsapp">WhatsApp: </span><span class="fr-data-whatsapp-info">' + localidade.whatsapp + '</span></br>' : '';
-                    var fax = localidade.fax ? '<span class="fr-data-fax">Fax: </span><span class="fr-data-fax-info">' + localidade.fax + '</span></br>' : '';
-                    var email2 = localidade.email2 ? '<span class="fr-data-email2">E-mail: </span><a href="mailto:' + localidade.email2 + '" class="fr-data-email2-info">' + localidade.email2 + '</a></br>' : '';
-                    var state = localidade.state ? '<span class="fr-data-country-state">'+localidade.city+' - '+localidade.state+'</span>' : '<span class="fr-data-country">'+localidade.city+'</span>';
-
+                    var phone2 = localidade.phone2 ? '<strong><span class="fr-data-phone">Teléfono: </span></strong><span class="fr-data-phone-info">' + localidade.phone2 + '</span><br />' : '';
+                    
+                    const frWpp = localidade.whatsapp.replace(/[\(\)\-\s]/g, '');
+                    var whatsapp = localidade.whatsapp ? '<span class="fr-data-whatsapp"><strong>WhatsApp:</strong> </span><a class="fr-data-whatsapp-info" href="https://wa.me/55'+frWpp+'" target="_blank">' + localidade.whatsapp + '</span><br />' : '';
+                    
+                    var fax = localidade.fax ? '<span class="fr-data-fax"><strong>Fax:</strong> </span><span class="fr-data-fax-info">' + localidade.fax + '</span><br />' : '';
+                    var email2 = localidade.email2 ? '<strong><span class="fr-data-email">E-mail: </span></strong><a href="<?= get_site_url();?>/es/hable-con-nosotros?data=' + btoa(localidade.email2) + '" class="fr-data-email-info">' + localidade.email2 + '</a><br />' : '';
+                    var state = localidade.state ? '<span class="fr-data-country-state">'+nomeEstado+' - '+localidade.country+'</span>' : '<span class="fr-data-country">'+localidade.contry+'</span>';
+                    
+                    
+                    
                     // Verifica se tratores é 1 e inclui o ícone
-                    var tratoresIcon = localidade.tratores == 1 ? '<i class="fas fa-tractor"></i><span class="fr_tractor"> Trator</span>' : '';
+                    var tratoresIcon = localidade.tratores == 1 ? '<strong><img loading="lazy" class="alignright wp-image-1262" src="<?=plugins_url('/', __FILE__).'img/trator.svg';?>" alt="" width="30" height="30" /></strong>' : '';
                     // Verifica se implementos é 1 e inclui o ícone
-                    var implementosIcon = localidade.implementos == 1 ? '<i class="fa-solid fa-toolbox"></i><span class="fr_tools"> Implementos</span>' : '';
+                    var implementosIcon = localidade.implementos == 1 ? '<strong><img loading="lazy" class="alignright wp-image-1262" src="<?=plugins_url('/', __FILE__).'img/implemento.svg';?>" alt="" width="30" height="30" /></strong>' : '';
                     // Verifica se peças é 1 e inclui o ícone
-                    var pecasIcon = localidade.pecas == 1 ? '<i class="fas fa-cogs"></i><span class="fr_cogs"> Peças</span>' : '';
-
-                    var html = '<div class="flex flex-column flex-50 fr-data-single">' +
-                        state +
-                        '<div class="fr-title"><span>' + localidade.title + '</span></div>' +
+                    var pecasIcon = localidade.pecas == 1 ? '<i class="fas fa-cogs"></i><span class="fr_cogs"> Parts</span>' : '';
+                    
+                    var html = '<div class="wrap mcb-wrap mcb-wrap-fr one-second tablet-one-second laptop-one-second mobile-one clearfix" data-desktop-col="one-second" data-laptop-col="laptop-one-second" data-tablet-col="tablet-one-second" data-mobile-col="mobile-one">' +
+                        '<div class="mcb-wrap-inner mcb-wrap-inner-fr mfn-module-wrapper mfn-wrapper-for-wraps">' +
+                        '<div class="mcb-wrap-background-overlay"></div>' +
+                        '<div class="column mcb-column mcb-item-2mmhkb26m one laptop-one tablet-one mobile-one column_column">' +
+                        '<div class="mcb-column-inner mfn-module-wrapper mcb-column-inner-2mmhkb26m mcb-item-column-inner">' +
+                        '<div class="column_attr mfn-inline-editor clearfix">' +
+                        '<h3>'+tratoresIcon +''+ implementosIcon+
+                        '<strong>' + localidade.city + '<br/></strong>' +
+                        state+
+                        '</h3>' +
+                        '<div>' +
+                        '<h4 class="fr-title">' + localidade.title + '</h4>' +
                         '<div class="fr-info">' +
-                            '<span class="fr-data-address">Endereço: </span><span class="fr-data-address-info">' + enderecoCompleto + '</span></br>' +
-                            '<span class="fr-data-country">País: </span><span class="fr-data-country-info">' + localidade.country + '</span></br>' +
-                            '<span class="fr-data-zipcode">CEP: </span><span class="fr-data-zipcode-info">' + cep + '</span></br>' +
-                            '<span class="fr-data-phone">Tel: </span><span class="fr-data-phone-info">' + localidade.phone + '</span></br>' +
-                            phone2 +
-                            whatsapp +
-                            fax +
-                            '<span class="fr-data-email">E-mail: </span><a href="mailto:' + localidade.email + '" class="fr-data-email-info">' + localidade.email + '</a></br>' +
-                            email2 +
-                            // Inclui os ícones de trator, implemento e peças
-                            '<div>' + tratoresIcon + ' ' + implementosIcon + ' ' + pecasIcon + '</div>' +
-                        '</div></div>';
-
+                        '<strong><span class="fr-data-address">Dirección: </span></strong><span class="fr-data-address-info">' + enderecoCompleto + '</span><br />' +
+                        '<strong><span class="fr-data-zipcode">CP: </span></strong><span class="fr-data-zipcode-info">' + cep + '</span><br />' +
+                        '<strong><span class="fr-data-phone">Teléfono: </span></strong><span class="fr-data-phone-info">' + localidade.phone + '</span><br />' +
+                        phone2 +
+                        whatsapp +
+                        fax +
+                        '<strong><span class="fr-data-email">E-mail: </span></strong><a class="fr-data-email-info" href="<?= get_site_url();?>/es/hable-con-nosotros?data=' + btoa(localidade.email) + '">' + localidade.email + '</a>'+
+                        '</div></div></div></div></div></div></div>';
+                    
                     $(".fr-data").append(html);
+
                 });
             }
 
@@ -99,10 +177,6 @@ function fr_reseller_form_shortcode() {
             function loadingCity(state) {
                 // Limpa o conteúdo do select de cidades
                 $("#city").empty();
-
-                // Opção "Selecione"
-                $("#city").append("<option value=''>Cidade</option>");
-
             // Requisição para API do IBGE
             $.ajax({
                 url: "https://servicodados.ibge.gov.br/api/v1/localidades/estados/" + state + "/municipios",
@@ -135,7 +209,7 @@ function fr_reseller_form_shortcode() {
                                 alert(data.error);
                             } else {
                                 fetchDataAndSaveToSession();
-                                var savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
+                                savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
                                 
                                 var latitudeReferencia = data.latitude;
                                 var longitudeReferencia = data.longitude;
@@ -156,7 +230,7 @@ function fr_reseller_form_shortcode() {
                                 });
 
                                 // Limitar a exibição das 26 empresas mais próximas
-                                var empresasMaisProximas = localidades.stores.slice(0, 26);
+                                var empresasMaisProximas = localidades.stores.slice(0, 4);
 
                                 fillClosestCompanies(empresasMaisProximas);
                             }
@@ -172,14 +246,58 @@ function fr_reseller_form_shortcode() {
             $('#country').on('change', function() {
                 var country = $('#country').val();
                 if (country.toUpperCase() === "BRASIL" || country.toUpperCase() === "BR") {
+                    $("#state").empty();
                     $('#state').prop('disabled', false);
+                    $("#state").append("<option>Estado</option>");
+
+                    $("#city").empty();
+                    $('#city').prop('disabled', true);
+                    $("#city").append("<option>Ciudad</option>");
+                    
+                    var states = [
+                        { value: "AC", text: "Acre" },
+                        { value: "AL", text: "Alagoas" },
+                        { value: "AM", text: "Amazonas" },
+                        { value: "AP", text: "Amapá" },
+                        { value: "BA", text: "Bahia" },
+                        { value: "CE", text: "Ceará" },
+                        { value: "DF", text: "Distrito Federal" },
+                        { value: "ES", text: "Espírito Santo" },
+                        { value: "GO", text: "Goiás" },
+                        { value: "MA", text: "Maranhão" },
+                        { value: "MG", text: "Minas Gerais" },
+                        { value: "MS", text: "Mato Grosso do Sul" },
+                        { value: "MT", text: "Mato Grosso" },
+                        { value: "PA", text: "Pará" },
+                        { value: "PB", text: "Paraíba" },
+                        { value: "PE", text: "Pernambuco" },
+                        { value: "PI", text: "Piauí" },
+                        { value: "PR", text: "Paraná" },
+                        { value: "RJ", text: "Rio de Janeiro" },
+                        { value: "RN", text: "Rio Grande do Norte" },
+                        { value: "RO", text: "Rondônia" },
+                        { value: "RR", text: "Roraima" },
+                        { value: "RS", text: "Rio Grande do Sul" },
+                        { value: "SC", text: "Santa Catarina" },
+                        { value: "SE", text: "Sergipe" },
+                        { value: "SP", text: "São Paulo" },
+                        { value: "TO", text: "Tocantins" }
+                    ];                
+
+                    states.forEach(function(state) {
+                        $("#state").append("<option value='" + state.value + "'>" + state.text + "</option>");
+                    });
                 } else {
+                    $("#state").empty();
                     $('#state').prop('disabled', true);
+                    
+                    $("#city").empty();
+                    $('#city').prop('disabled', true);
                 }
 
                     // Filtrar empresas pelo país selecionado
                     fetchDataAndSaveToSession();
-                    var savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
+                    savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
 
                     var localidades = savedData.filter(function(localidade) {
                     return localidade.country.toUpperCase() === country.toUpperCase();
@@ -195,7 +313,7 @@ function fr_reseller_form_shortcode() {
 
                 loadingCity(estadoSelecionado);
                 fetchDataAndSaveToSession();
-                var savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
+                savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
 
                 var localidades = {"stores": savedData};
                 var coordenadasEstados = {
@@ -245,7 +363,7 @@ function fr_reseller_form_shortcode() {
                 });
 
                 // Limitar a exibição das 26 empresas mais próximas
-                var empresasMaisProximas = localidades.stores.slice(0, 26);
+                var empresasMaisProximas = localidades.stores.slice(0, 4);
 
                 fillClosestCompanies(empresasMaisProximas);
             });
@@ -254,7 +372,7 @@ function fr_reseller_form_shortcode() {
             $('#city').on('change', function() {
                 var cidadeSelecionada = $(this).val();
                 fetchDataAndSaveToSession();
-                var savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
+                savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
 
                 var localidades = {"stores": savedData};
                 $.ajax({
@@ -281,7 +399,7 @@ function fr_reseller_form_shortcode() {
                             });
 
                             // Limitar a exibição das 26 empresas mais próximas
-                            var empresasMaisProximas = localidades.stores.slice(0, 26);
+                            var empresasMaisProximas = localidades.stores.slice(0, 4);
 
                             fillClosestCompanies(empresasMaisProximas);
                         } else {
@@ -303,8 +421,12 @@ function fr_reseller_form_shortcode() {
     $countrys = $wpdb->get_results("SELECT DISTINCT country FROM $table_name", ARRAY_A);
     ?>
     <style>
+        .w-100{
+                width: 100%;
+            }
         .flex{
             display: flex;
+            flex-wrap: wrap;
         }
         .flex-column{
             flex-direction: column;
@@ -325,8 +447,6 @@ function fr_reseller_form_shortcode() {
             align-items: center;
         }
         .fr-form{
-            min-width: 380px;
-            min-height: 140px;
             padding: 5px;
         }
         .fr-zipcode{
@@ -339,29 +459,48 @@ function fr_reseller_form_shortcode() {
         .fr-data-single{
             padding: 10px;
         }
+        .flex.fr-zipcode-input.flex-column input[type=text] {
+            width: 100%;
+        }
+        button#zipcode-search {
+            max-width: 25%;
+        }
+        .mcb-section .mcb-wrap-fr .mcb-wrap-inner-fr {
+            background-color: rgba(0, 0, 0, 0.03);
+            padding-top: 20px;
+            padding-right: 20px;
+            padding-bottom: 20px;
+            padding-left: 20px;
+            align-content: space-evenly;
+            align-items: center;
+            margin-right: 20px;
+            margin-left: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
         
     </style>
     <div class="flex fr-form flex-item-center">
-        <form>
-            <div class="flex fr-zipcode flex-column">
-                <label for="zipcode">Procure pelo CEP: </label>
-                <div class="flex fr-zipcode-input flex-item-center">
+        <form class="w-100">
+            <div class="flex fr-zipcode flex-column flex-column" style="display: none;">
+                <h3 for="zipcode">escriba su CP: </h3>
+                <div class="flex fr-zipcode-input flex-column">
                     <input type="text" name="zipcode" id="zipcode">
                     <button class="search-btn-zipcode" id="zipcode-search">Buscar</button>
                 </div>                
             </div>
             <div class="flex fr-filter flex-column">
-                <label>Ou localize pelo estado ou pais de sua escolha:</label>
-                <div class="flex fr-form-opt">
-                    <select class="fr-from-country flex-1" name="country" id="country" aria-placeholder="País" >
-                        <option value="">País</option>
-                        <?php foreach ($countrys as $country){
-                            echo '<option value="'.$country['country'].'">'.$country['country'].'</option>';
-                        }
-                        ?>
+                <h3>ubicar por el estado o país de su elección:</h3>
+                <div class="flex fr-form-opt flex-column">
+                    <h4>País</h4>
+                    <select class="fr-from-country flex-1 w-100" name="country" id="country" aria-placeholder="País" >
+                        <?php foreach ($countrys as $country): ?>
+                            <option value="<?= $country['country'] ?>"><?= $country['country'] ?></option>';
+                        <?php endforeach; ?>
                     </select>
-                    <select class="fr-from-state flex-1" name="state" id="state" aria-placeholder="Estado" disabled>
-                        <option value="">Estado</option>
+                    <h4>Estado</h4>
+                    <select class="fr-from-state flex-1 w-100" name="state" id="state" aria-placeholder="Estado">
+                        <option></option>
                         <option value="AC">Acre</option>
                         <option value="AL">Alagoas</option>
                         <option value="AM">Amazonas</option>
@@ -390,8 +529,8 @@ function fr_reseller_form_shortcode() {
                         <option value="SP">São Paulo</option>
                         <option value="TO">Tocantins</option>
                     </select>
-                    <select class="fr-from-city flex-1" name="city" id="city" aria-placeholder="Cidade" disabled>
-                        <option value="">Cidade</option>
+                    <h4>Ciudad</h4>
+                    <select class="fr-from-city flex-1 w-100" name="city" id="city" aria-placeholder="Cidade" disabled>
                     </select>
                 </div>
             </div>

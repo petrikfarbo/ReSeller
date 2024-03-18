@@ -24,20 +24,34 @@ if (isset($_POST['reseller_data'])) {
 if (isset($_POST['zipcode'])) {
     $cep = $_POST['zipcode'];
 
+    $headers = [
+      'Accept: */*',
+      'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36',
+      'Accept-Language: pt-BR,pt;q=0.9',
+      'Connection: keep-alive',
+      'Authorization: Token token=d03ab2505d4de0665adb0ff7ae2914ba',
+    ];
+    
     $url = 'https://www.cepaberto.com/api/v3/cep?cep=' . $cep;
-
+    
     // Configurações da requisição
     $options = [
-        'http' => [
-            'header' => "Authorization: Token token=d03ab2505d4de0665adb0ff7ae2914ba\r\n"
-        ]
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_SSL_VERIFYHOST => false,
     ];
-
-    // Criando contexto da requisição
-    $context = stream_context_create($options);
-
+    
+    // Inicializa o cURL
+    $curl = curl_init();
+    curl_setopt_array($curl, $options);
+    
     // Fazendo a requisição
-    $response = file_get_contents($url, false, $context);
+    $response = curl_exec($curl);
+
+    // Fecha a sessão cURL
+    curl_close($curl);
 
     // Se a resposta não estiver vazia
     if ($response !== false) {
