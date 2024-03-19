@@ -55,7 +55,6 @@ function fr_reseller_admin_page() {
                     <th>Email</th>
                     <th>Tratores</th>
                     <th>Implementos</th>
-                    <th>Peças</th>
                     <th colspan="2"><center>Ações</center></th>
                 </tr>
             </thead>
@@ -75,7 +74,6 @@ function fr_reseller_admin_page() {
                         echo "<td>{$reseller['email']}</td>";
                         echo "<td><center>" . ($reseller['tratores'] == 1 ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>') . "</center></td>";
                         echo "<td><center>" . ($reseller['implementos'] == 1 ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>') . "</center></td>";
-                        echo "<td><center>" . ($reseller['pecas'] == 1 ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>') . "</center></td>";
                         echo "<td><center><a href='" . admin_url('admin.php?page=fr_reseller_cadastrar&reseller_id=' . $reseller['id']) . "'>Editar</a></td>";
                         echo "<td><center><a href='" . wp_nonce_url(admin_url('admin-post.php?action=fr_reseller_delete&reseller_id=' . $reseller['id']), 'fr_reseller_delete_' . $reseller['id']) . "' onclick=\"return confirm('Tem certeza de que deseja excluir este revendedor?');\">Excluir</a></td>";
                         echo "</center></tr>";

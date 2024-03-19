@@ -25,7 +25,6 @@ function fr_activate_plugin() {
   longitude DECIMAL(11,8) NULL,
   tratores INT NOT NULL Default 0,
   implementos INT NOT NULL Default 0,
-  pecas INT NOT NULL Default 0,
   PRIMARY KEY (id)
   );";
 

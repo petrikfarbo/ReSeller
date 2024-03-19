@@ -8,6 +8,12 @@ function fr_reseller_cadastrar_page(){
             $reseller_id = $_GET['reseller_id'];
             $reseller = $wpdb->get_row("SELECT * FROM $table_name WHERE id = $reseller_id", ARRAY_A);
             if($reseller){
+                global $wpdb;
+                $table_atuacao = $wpdb->prefix . 'reseller_atuacao';
+                $reseller_atuacao = $wpdb->get_results("SELECT city FROM $table_atuacao WHERE id_revenda = $reseller_id", ARRAY_A);
+
+                $cidadesJson = file_get_contents(plugins_url('/', __FILE__).'cidades.json');
+                $cidadesArray = json_decode($cidadesJson, true);
                 ?>
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/4.0.9/jquery.inputmask.bundle.min.js"></script>
@@ -49,6 +55,8 @@ function fr_reseller_cadastrar_page(){
                             $('#country').on('change', function() {
                                 var country = $(this).val();
                                 if(country == "Brasil" || country == "BRASIL" || country == "Br" || country == "BR" || country == "br"){
+                                    $('.atuacao-reseller').show();
+
                                     $('#phone').inputmask('(99) 9 9999-9999');
 
                                     $('#whatsapp').inputmask('(99) 9 9999-9999');
@@ -56,6 +64,8 @@ function fr_reseller_cadastrar_page(){
                                     $('#fax').inputmask('(99) 9999-9999');
 
                                     $('#zipcode').inputmask('99999-999');
+                                }else{
+                                    $('.atuacao-reseller').hide();
                                 }
                             });
                         });
@@ -147,10 +157,15 @@ function fr_reseller_cadastrar_page(){
                                     <th scope="row"><label for="implementos">Implementos:</label></th>
                                     <td><input type="checkbox" name="implementos" id="implementos" class="regular-text" <?php echo $reseller['implementos'] == 1 ? "checked" : ""; ?>></td>
                                 </tr>
-                                <tr>    
+                                <tr class="atuacao-reseller" style="display: none;">       
                                     <th scope="row"><label for="pecas">Cidades de Atuação:</label></th>
                                     <td>
-                                        <select id="city-list" multiple="multiple" class="regular-text"></select>
+                                        <select id="city-list" multiple="multiple" class="regular-text">
+                                            <?php foreach ($cidadesArray as $city => $coordinates): ?>
+                                                <?php $selected = in_array($city, $reseller_atuacao) ? 'selected' : ''; ?>
+                                                <option value="<?php echo $city; ?>" <?php echo $selected; ?>><?php echo $city; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -241,6 +256,8 @@ function fr_reseller_cadastrar_page(){
             $('#country').on('change', function() {
                 var country = $(this).val();
                 if(country == "Brasil" || country == "BRASIL" || country == "Br" || country == "BR" || country == "br"){
+                    $('.atuacao-reseller').show();
+
                     $('#phone').inputmask('(99) 9 9999-9999');
 
                     $('#whatsapp').inputmask('(99) 9 9999-9999');
@@ -248,6 +265,8 @@ function fr_reseller_cadastrar_page(){
                     $('#fax').inputmask('(99) 9999-9999');
 
                     $('#zipcode').inputmask('99999-999');
+                }else{
+                    $('.atuacao-reseller').hide();
                 }
             });
         });
@@ -338,10 +357,10 @@ function fr_reseller_cadastrar_page(){
                     <th scope="row"><label for="implementos">Implementos:</label></th>
                     <td><input type="checkbox" name="implementos" id="implementos" class="regular-text"></td>
                 </tr>
-                <tr>    
+                <tr class="atuacao-reseller" style="display: none;">    
                     <th scope="row"><label for="pecas">Cidades de Atuação:</label></th>
                     <td>
-                        <select id="city-list" multiple="multiple" class="regular-text"></select>
+                        <select id="city-list" multiple="multiple" class="regular-text" name="city-list[]"></select>
                     </td>
                 </tr>
                 </tbody>
