@@ -9,6 +9,7 @@ function fr_reseller_cadastrar_page(){
             $reseller = $wpdb->get_row("SELECT * FROM $table_name WHERE id = $reseller_id", ARRAY_A);
             if($reseller){
                 ?>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/4.0.9/jquery.inputmask.bundle.min.js"></script>
 
                     <script>
@@ -147,8 +148,10 @@ function fr_reseller_cadastrar_page(){
                                     <td><input type="checkbox" name="implementos" id="implementos" class="regular-text" <?php echo $reseller['implementos'] == 1 ? "checked" : ""; ?>></td>
                                 </tr>
                                 <tr>    
-                                    <th scope="row"><label for="pecas">Peças:</label></th>
-                                    <td><input type="checkbox" name="pecas" id="pecas" class="regular-text" <?php echo $reseller['pecas'] == 1 ? "checked" : ""; ?>></td>
+                                    <th scope="row"><label for="pecas">Cidades de Atuação:</label></th>
+                                    <td>
+                                        <select id="city-list" multiple="multiple" class="regular-text"></select>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -159,6 +162,37 @@ function fr_reseller_cadastrar_page(){
                         </form>
 
                     </div>
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+                    <script>
+                        $(document).ready(function() {
+                            // Carregar o arquivo JSON com as cidades
+                            $.getJSON('<?=plugins_url('/', __FILE__).'cidades.json';?>', function(data) {
+                                var cities = [];
+                                $.each(data, function(city, coordinates) {
+                                    cities.push({
+                                        id: city,
+                                        text: city
+                                    });
+                                });
+                                // Popular o campo de seleção com as cidades usando Select2
+                                $('#city-list').select2({
+                                    placeholder: 'Selecione as cidades',
+                                    data: cities
+                                });
+                            });
+
+                            // Adicionar funcionalidade de pesquisa
+                            $('#search').on('keyup', function() {
+                                var searchText = $(this).val().toLowerCase();
+                                $('#city-list option').each(function() {
+                                    var text = $(this).text().toLowerCase();
+                                    var match = text.includes(searchText);
+                                    $(this).toggle(match);
+                                });
+                            });
+                        });
+                    </script>
                 <?php
             } else {
                 echo "<div class='error'><p>Revendedora não encontrada.</p></div>";
@@ -168,6 +202,7 @@ function fr_reseller_cadastrar_page(){
         }
     }else{
     ?>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/4.0.9/jquery.inputmask.bundle.min.js"></script>
 
     <script>
@@ -304,8 +339,10 @@ function fr_reseller_cadastrar_page(){
                     <td><input type="checkbox" name="implementos" id="implementos" class="regular-text"></td>
                 </tr>
                 <tr>    
-                    <th scope="row"><label for="pecas">Peças:</label></th>
-                    <td><input type="checkbox" name="pecas" id="pecas" class="regular-text"></td>
+                    <th scope="row"><label for="pecas">Cidades de Atuação:</label></th>
+                    <td>
+                        <select id="city-list" multiple="multiple" class="regular-text"></select>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -316,6 +353,37 @@ function fr_reseller_cadastrar_page(){
         </form>
 
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Carregar o arquivo JSON com as cidades
+            $.getJSON('<?=plugins_url('/', __FILE__).'cidades.json';?>', function(data) {
+                var cities = [];
+                $.each(data, function(city, coordinates) {
+                    cities.push({
+                        id: city,
+                        text: city
+                    });
+                });
+                // Popular o campo de seleção com as cidades usando Select2
+                $('#city-list').select2({
+                    placeholder: 'Selecione as cidades',
+                    data: cities
+                });
+            });
+
+            // Adicionar funcionalidade de pesquisa
+            $('#search').on('keyup', function() {
+                var searchText = $(this).val().toLowerCase();
+                $('#city-list option').each(function() {
+                    var text = $(this).text().toLowerCase();
+                    var match = text.includes(searchText);
+                    $(this).toggle(match);
+                });
+            });
+        });
+    </script>
     
 
     <?php
