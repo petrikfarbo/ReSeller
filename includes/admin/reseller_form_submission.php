@@ -15,6 +15,7 @@ function fr_reseller_form_submission() {
     check_admin_referer('fr_reseller_form_verify');
 
     $table_name = $wpdb->prefix . 'reseller_data';
+    $table_atuacao = $wpdb->prefix . 'reseller_atuacao';
 
     // Coletar e sanitizar dados do formulário
     $codigo = sanitize_text_field($_POST['codigo']);
@@ -35,7 +36,10 @@ function fr_reseller_form_submission() {
     $longitude = sanitize_text_field($_POST['longitude']);
     $tratores = isset($_POST['tratores']) ? 1 : 0;
     $implementos = isset($_POST['implementos']) ? 1 : 0;
-    $pecas = isset($_POST['pecas']) ? 1 : 0;
+
+    $selectedCities = $_POST['city-list'];
+
+   
 
     // Inserir dados no banco de dados
     // Verificar se é uma atualização ou um novo cadastro
@@ -44,7 +48,7 @@ function fr_reseller_form_submission() {
 
         // Atualizar os dados no banco de dados
         $wpdb->update(
-            $wpdb->prefix . 'reseller_data',
+            $table_name,
             array(
                 'Codigo' => $codigo,
                 'title' => $title,
@@ -63,14 +67,34 @@ function fr_reseller_form_submission() {
                 'latitude' => $latitude,
                 'longitude' => $longitude,
                 'tratores' => $tratores,
-                'implementos' => $implementos,
-                'pecas' => $pecas
+                'implementos' => $implementos
             ),
             array('id' => $reseller_id),
             array(
-                '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d', '%d'
+                '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d'
+            )
+
+        );
+
+        $wpdb->delete(
+            $table_atuacao,
+            array(
+                'id_revenda' => $reseller_id
             )
         );
+
+        foreach ($selectedCities as $city) {
+            $wpdb->insert(
+                $table_atuacao,
+                array(
+                    'id_revenda' => $reseller_id,
+                    'state' => $state,
+                    'country' => $country,
+                    'city' => $city
+                )
+            );
+        }
+
     }else{
         $wpdb->insert(
             $table_name,
@@ -92,10 +116,25 @@ function fr_reseller_form_submission() {
                 'latitude' => $latitude,
                 'longitude' => $longitude,
                 'tratores' => $tratores,
-                'implementos' => $implementos,
-                'pecas' => $pecas
+                'implementos' => $implementos
             )
         );
+
+        // Pega o ID da última inserção
+        $empresa_id = $wpdb->insert_id;
+
+        // Insere na tabela de atuação para cada cidade
+        foreach ($selectedCities as $city) {
+            $wpdb->insert(
+                $table_atuacao,
+                array(
+                    'id_revenda' => $empresa_id,
+                    'state' => $state,
+                    'country' => $country,
+                    'city' => $city
+                )
+            );
+        }
     }
     // Redirecionar de volta para a página do plugin após o envio do formulário
     wp_redirect(admin_url('admin.php?page=fr_reseller'));

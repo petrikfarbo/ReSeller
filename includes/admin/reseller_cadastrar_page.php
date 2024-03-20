@@ -11,9 +11,6 @@ function fr_reseller_cadastrar_page(){
                 global $wpdb;
                 $table_atuacao = $wpdb->prefix . 'reseller_atuacao';
                 $reseller_atuacao = $wpdb->get_results("SELECT city FROM $table_atuacao WHERE id_revenda = $reseller_id", ARRAY_A);
-
-                $cidadesJson = file_get_contents(plugins_url('/', __FILE__).'cidades.json');
-                $cidadesArray = json_decode($cidadesJson, true);
                 ?>
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/4.0.9/jquery.inputmask.bundle.min.js"></script>
@@ -160,10 +157,9 @@ function fr_reseller_cadastrar_page(){
                                 <tr class="atuacao-reseller" style="display: none;">       
                                     <th scope="row"><label for="pecas">Cidades de Atuação:</label></th>
                                     <td>
-                                        <select id="city-list" multiple="multiple" class="regular-text">
-                                            <?php foreach ($cidadesArray as $city => $coordinates): ?>
-                                                <?php $selected = in_array($city, $reseller_atuacao) ? 'selected' : ''; ?>
-                                                <option value="<?php echo $city; ?>" <?php echo $selected; ?>><?php echo $city; ?></option>
+                                        <select id="city-list" multiple="multiple" class="regular-text" name="city-list[]">
+                                            <?php foreach ($reseller_atuacao as $atuacao): ?>
+                                                <option value="<?=$atuacao['city']?>" selected><?=$atuacao['city']?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </td>
@@ -206,6 +202,12 @@ function fr_reseller_cadastrar_page(){
                                     $(this).toggle(match);
                                 });
                             });
+
+                            if($('#country').val() == "Brasil" || $('#country').val() == "BRASIL" || $('#country').val() == "Br" || $('#country').val() == "BR" || $('#country').val() == "br"){
+                                $('.atuacao-reseller').show();   
+                            }else{
+                                $('.atuacao-reseller').hide();
+                            }
                         });
                     </script>
                 <?php
