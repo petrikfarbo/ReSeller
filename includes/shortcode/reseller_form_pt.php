@@ -193,8 +193,6 @@ function fr_reseller_form_pt_shortcode() {
                 e.preventDefault();
                 var zipcode = $('#zipcode').val();
                 if (typeof zipcode !== "undefined" && zipcode !== "") {
-                    $('.fr-data').show();
-                    $('.fr-data-icon').show();
                     zipcode = zipcode.replace('-', '');
 
                     $.ajax({
@@ -208,6 +206,9 @@ function fr_reseller_form_pt_shortcode() {
                             if (data.error) {
                                 alert(data.error);
                             } else {
+                                $('.fr-data').show();
+                                $('.fr-data-icon').show();
+                                
                                 fetchDataAndSaveToSession();
                                 savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
                                 
@@ -471,9 +472,6 @@ function fr_reseller_form_pt_shortcode() {
     </script>
 
     <?php
-    $resellers_data = $wpdb->get_results("SELECT * FROM $table_name", ARRAY_A);
-    file_put_contents('wp-content/plugins/reseller/includes/shortcode/resellers.json', json_encode($resellers_data));
-
     $countrys = $wpdb->get_results("SELECT DISTINCT country FROM $table_name", ARRAY_A);
     ?>
     <style>

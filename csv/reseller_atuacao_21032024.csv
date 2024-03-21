@@ -1,0 +1,762 @@
+id,id_revenda,country,state,city
+16,12,Brasil,BA,Água Fria
+17,12,Brasil,BA,Aiquara
+18,12,Brasil,BA,Alcobaça
+19,12,Brasil,BA,Almadina
+20,12,Brasil,BA,Anagé
+21,12,Brasil,BA,Apuarema
+22,12,Brasil,BA,Aracatu
+23,12,Brasil,BA,Arataca
+24,12,Brasil,BA,Arataca
+25,12,Brasil,BA,Aurelino Leal
+26,12,Brasil,BA,Barra do Choça
+27,12,Brasil,BA,Barra do Rocha
+28,12,Brasil,BA,Barro Preto
+29,12,Brasil,BA,Belmonte
+30,12,Brasil,BA,Belo Campo
+31,12,Brasil,BA,Boa Nova
+32,12,Brasil,BA,Bom Jesus da Serra
+33,12,Brasil,BA,Brumado
+34,12,Brasil,BA,Buerarema
+35,12,Brasil,BA,Caatiba
+36,12,Brasil,BA,Caculé
+37,12,Brasil,BA,Caetanos
+38,12,Brasil,BA,Caetité
+39,12,Brasil,BA,Camacan
+40,12,Brasil,BA,Camamu
+41,12,Brasil,BA,Canavieiras
+42,12,Brasil,BA,Candiba
+43,12,Brasil,BA,Cândido Sales
+44,12,Brasil,BA,Caraíbas
+45,12,Brasil,BA,Caravelas
+46,12,Brasil,BA,Carinhanha
+47,12,Brasil,BA,Coaraci
+48,12,Brasil,BA,Cocos
+49,12,Brasil,BA,Condeúba
+50,12,Brasil,BA,Contendas do Sincorá
+51,12,Brasil,BA,Cordeiros
+52,12,Brasil,BA,Coribe
+53,12,Brasil,BA,Dário Meira
+54,12,Brasil,BA,Dom Basílio
+55,12,Brasil,BA,Encruzilhada
+56,12,Brasil,BA,Eunápolis
+57,12,Brasil,BA,Feira da Mata
+58,12,Brasil,BA,Firmino Alves
+59,12,Brasil,BA,Floresta Azul
+60,12,Brasil,BA,Gandu
+61,12,Brasil,BA,Gongogi
+62,12,Brasil,BA,Guajeru
+63,12,Brasil,BA,Guanambi
+64,12,Brasil,BA,Guaratinga
+65,12,Brasil,BA,Ibiassucê
+66,12,Brasil,BA,Ibicaraí
+67,12,Brasil,BA,Ibirapitanga
+68,12,Brasil,BA,Ibirapuã
+69,12,Brasil,BA,Ibirataia
+70,12,Brasil,BA,Igaporã
+71,12,Brasil,BA,Igrapiúna
+72,12,Brasil,BA,Iguaí
+73,12,Brasil,BA,Ilhéus
+74,12,Brasil,BA,Ipiaú
+75,12,Brasil,BA,Itabela
+76,12,Brasil,BA,Itabuna
+77,12,Brasil,BA,Itacaré
+78,12,Brasil,BA,Itagi
+79,12,Brasil,BA,Itagibá
+80,12,Brasil,BA,Itagimirim
+81,12,Brasil,BA,Itaju do Colônia
+82,12,Brasil,BA,Itajuípe
+83,12,Brasil,BA,Itamaraju
+84,12,Brasil,BA,Itamari
+85,12,Brasil,BA,Itambé
+86,12,Brasil,BA,Itanhén
+87,12,Brasil,BA,Itapé
+88,12,Brasil,BA,Itapebi
+89,12,Brasil,BA,Itapetinga
+90,12,Brasil,BA,Itapitanga
+91,12,Brasil,BA,Itaquara
+92,12,Brasil,BA,Itarantim
+93,12,Brasil,BA,Itiruçu
+94,12,Brasil,BA,Itororó
+95,12,Brasil,BA,Ituaçu
+96,12,Brasil,BA,Ituberá
+97,12,Brasil,BA,Iuiú
+98,12,Brasil,BA,Jaborandi
+99,12,Brasil,BA,Jacaraci
+100,12,Brasil,BA,Jaguaquara
+101,12,Brasil,BA,Jequié
+102,12,Brasil,BA,Jitaúna
+103,12,Brasil,BA,Jucuruçu
+104,12,Brasil,BA,Jussari
+105,12,Brasil,BA,Lafaiete Coutinho
+106,12,Brasil,BA,Lagoa Real
+107,12,Brasil,BA,Lajedão
+108,12,Brasil,BA,Lajedo do Tabocal
+109,12,Brasil,BA,Licínio de Almeida
+110,12,Brasil,BA,Livramento do Brumado
+111,12,Brasil,BA,Macarani
+112,12,Brasil,BA,Maetinga
+113,12,Brasil,BA,Maiquinique
+114,12,Brasil,BA,Malhada
+115,12,Brasil,BA,Malhada de Pedras
+116,12,Brasil,BA,Manoel Vitorino
+117,12,Brasil,BA,Maracás
+118,12,Brasil,BA,Maraú
+119,12,Brasil,BA,Matina
+120,12,Brasil,BA,Medeiros Neto
+121,12,Brasil,BA,Mirante
+122,12,Brasil,BA,Mortugaba
+123,12,Brasil,BA,Mucuri
+124,12,Brasil,BA,Nilo Peçanha
+125,12,Brasil,BA,Nova Canaã
+126,12,Brasil,BA,Nova Ibiá
+127,12,Brasil,BA,Nova Viçosa
+128,12,Brasil,BA,Palmas de Monte Alto
+129,12,Brasil,BA,Pau Brasil
+130,12,Brasil,BA,Pindaí
+131,12,Brasil,BA,Piraí do Norte
+132,12,Brasil,BA,Piripá
+133,12,Brasil,BA,Planalto
+134,12,Brasil,BA,Poções
+135,12,Brasil,BA,Porto Seguro
+136,12,Brasil,BA,Potiraguá
+137,12,Brasil,BA,Prado
+138,12,Brasil,BA,Presidente Jânio Quadros
+139,12,Brasil,BA,Riacho de Santana
+140,12,Brasil,BA,Ribeirão do Largo
+141,12,Brasil,BA,Rio do Antônio
+142,12,Brasil,BA,Santa Cruz Cabrália
+143,12,Brasil,BA,Santa Cruz da Vitória
+144,12,Brasil,BA,Santa Luzia
+145,12,Brasil,BA,São José da Vitória
+146,12,Brasil,BA,Sebastião Laranjeiras
+147,12,Brasil,BA,Tanhaçu
+148,12,Brasil,BA,Teixeira de Freitas
+149,12,Brasil,BA,Tremedal
+150,12,Brasil,BA,Ubaitaba
+151,12,Brasil,BA,Ubatã
+152,12,Brasil,BA,Una
+153,12,Brasil,BA,Urandi
+154,12,Brasil,BA,Uruçuca
+155,12,Brasil,BA,Vereda
+156,12,Brasil,BA,Vitória da Conquista
+157,12,Brasil,BA,Wenceslau Guimarães
+158,11,Brasil,BA,Abaré
+159,11,Brasil,BA,Barra do Tarrachil
+160,11,Brasil,BA,Bonito
+161,11,Brasil,BA,Capim Grosso
+162,11,Brasil,BA,Casa Nova
+163,11,Brasil,BA,Curuçá
+164,11,Brasil,BA,Jacobina
+165,11,Brasil,BA,Jaguari
+166,11,Brasil,BA,Juazeiro
+167,11,Brasil,BA,Maçaroca
+168,11,Brasil,BA,Pedra Branca
+169,11,Brasil,BA,Pilão Arcado
+170,11,Brasil,BA,Ponto Novo
+171,11,Brasil,BA,Remanso
+172,11,Brasil,BA,Riacho Seco
+173,11,Brasil,BA,Rodelas
+174,11,Brasil,BA,Sento Sé
+175,11,Brasil,BA,Senhor do Bonfim
+176,11,Brasil,BA,Sobradinho
+177,11,Brasil,BA,Umburanas
+178,33,Brasil,MG,Alfredo Vasconcelos
+179,33,Brasil,MG,Alto Rio Doce
+180,33,Brasil,MG,Antônio Carlos
+181,33,Brasil,MG,Aracitaba
+182,33,Brasil,MG,Barbacena
+183,33,Brasil,MG,Barroso
+184,33,Brasil,MG,Capela Nova
+185,33,Brasil,MG,Carandaí
+186,33,Brasil,MG,Cipotânea
+187,33,Brasil,MG,Desterro do Melo
+188,33,Brasil,MG,Dores de Campos
+189,33,Brasil,MG,Ibertioga
+190,33,Brasil,MG,Mercês
+191,33,Brasil,MG,Oliveira Fortes
+192,33,Brasil,MG,Paiva
+193,33,Brasil,MG,Prados
+194,33,Brasil,MG,Ressaquinha
+195,33,Brasil,MG,Rio Espera
+196,33,Brasil,MG,Santa Bárbara do Tugúrio
+197,33,Brasil,MG,Santa Cruz de Minas
+198,33,Brasil,MG,Santos Dumont
+199,33,Brasil,MG,São João Del Rei
+200,33,Brasil,MG,Senhora Dos Remédios
+201,33,Brasil,MG,Tiradentes
+202,43,Brasil,MG,Arcos
+203,43,Brasil,MG,Bambuí
+204,43,Brasil,MG,Capitólio
+205,43,Brasil,MG,Córrego Fundo
+206,43,Brasil,MG,Doresópolis
+207,43,Brasil,MG,Formiga
+208,43,Brasil,MG,Iguatama
+209,43,Brasil,MG,Japaraíba
+210,43,Brasil,MG,Medeiros
+211,43,Brasil,MG,Pains
+212,43,Brasil,MG,Pedras de Indaiá
+213,43,Brasil,MG,Pimenta
+214,43,Brasil,MG,Piumhi
+215,43,Brasil,MG,São Roque de Minas
+216,43,Brasil,MG,Vargem Bonita
+217,28,Brasil,MT,Claudia
+218,28,Brasil,MT,Colider
+219,28,Brasil,MT,Guarantã do Norte
+220,28,Brasil,MT,Itauba
+221,28,Brasil,MT,Matupá
+222,28,Brasil,MT,Nova Guarita
+223,28,Brasil,MT,Nova Santa Helena
+224,28,Brasil,MT,Novo Mundo
+225,28,Brasil,MT,Peixoto de Azevedo
+226,28,Brasil,MT,Terra Nova do Norte
+227,69,Brasil,PE,Afrânio
+228,69,Brasil,PE,Araripina
+229,69,Brasil,PE,Belém do São Francisco
+230,69,Brasil,PE,Bodocó
+231,69,Brasil,PE,Cabrobó
+232,69,Brasil,PE,Dormentes
+233,69,Brasil,PE,Floresta
+234,69,Brasil,PE,Ibimirim
+235,69,Brasil,PE,Ibó
+236,69,Brasil,PE,Inajá
+237,69,Brasil,PE,Itacuruba
+238,69,Brasil,PE,Lagoa Grande
+239,69,Brasil,PE,Marcolândia
+240,69,Brasil,PE,Orocó
+241,69,Brasil,PE,Ouricuri
+242,69,Brasil,PE,Parnamirim
+243,69,Brasil,PE,Petrolandia
+244,69,Brasil,PE,Petrolina
+245,69,Brasil,PE,Salgueiro
+246,69,Brasil,PE,Santa Cruz
+247,69,Brasil,PE,Santa Maria da Boa Vista
+248,69,Brasil,PE,Trindade
+249,69,Brasil,PE,Trindade
+250,72,Brasil,PI,Agricolândia
+251,72,Brasil,PI,Água Branca
+252,72,Brasil,PI,Alto Longá
+253,72,Brasil,PI,Altos
+254,72,Brasil,PI,Beneditinos
+255,72,Brasil,PI,Boa Hora
+256,72,Brasil,PI,Boqueirão do Piauí
+257,72,Brasil,PI,Buriti Dos Montes
+258,72,Brasil,PI,Cabeceiras do Piauí
+259,72,Brasil,PI,Campo Maior
+260,72,Brasil,PI,Capitão de Campos
+261,72,Brasil,PI,Castelo do Piauí
+262,72,Brasil,PI,Cocal de Telha
+263,72,Brasil,PI,Coivaras
+264,72,Brasil,PI,Cruz Dos Milagres
+265,72,Brasil,PI,Curralinhos
+266,72,Brasil,PI,Demerval Lobão
+267,72,Brasil,PI,Jatobá do Piauí
+268,72,Brasil,PI,José de Freitas
+269,72,Brasil,PI,Juazeiro do Piauí
+270,72,Brasil,PI,Lagoa Alegre
+271,72,Brasil,PI,Lagoa do Piauí
+272,72,Brasil,PI,Lagoinha do Barro Duro
+273,72,Brasil,PI,Miguel Leão
+274,72,Brasil,PI,Milton Brandão
+275,72,Brasil,PI,Monsenhor Gil
+276,72,Brasil,PI,Nossa Senhora de Nazaré
+277,72,Brasil,PI,Palmeiras
+278,72,Brasil,PI,Passagem Franca do Piauí
+279,72,Brasil,PI,Pau D' Arco do Piauí
+280,72,Brasil,PI,Pedro Ii
+281,72,Brasil,PI,Prata do Piauí
+282,72,Brasil,PI,São Felix do Piauí
+283,72,Brasil,PI,São João da Serra
+284,72,Brasil,PI,São Pedro do Piauí
+285,72,Brasil,PI,Sigefredo Pacheco
+286,72,Brasil,PI,União
+287,64,Brasil,PR,Adrianópolis
+288,64,Brasil,PR,Agudos do Sul
+289,64,Brasil,PR,Almirante Tamandaré
+290,64,Brasil,PR,Antonina
+291,64,Brasil,PR,Araucária
+292,64,Brasil,PR,Balsa Nova
+293,64,Brasil,PR,Bocaiúva do Sul
+294,64,Brasil,PR,Campina Grande do Sul
+295,64,Brasil,PR,Campo do Tenente
+296,64,Brasil,PR,Campo Largo
+297,64,Brasil,PR,Campo Magro
+298,64,Brasil,PR,Cerro Azul
+299,64,Brasil,PR,Colombo
+300,64,Brasil,PR,Contenda
+301,64,Brasil,PR,Curitiba
+302,64,Brasil,PR,Fazenda Rio Grande
+303,64,Brasil,PR,Guaraqueçaba
+304,64,Brasil,PR,Guaratuba
+305,64,Brasil,PR,Itaperuçu
+306,64,Brasil,PR,Lapa
+307,64,Brasil,PR,Mandirituba
+308,64,Brasil,PR,Matinhos
+309,64,Brasil,PR,Morretes
+310,64,Brasil,PR,Paranaguá
+311,64,Brasil,PR,Piên
+312,64,Brasil,PR,Pinhas
+313,64,Brasil,PR,Piraquara
+314,64,Brasil,PR,Pontal do Paraná
+315,64,Brasil,PR,Porto Amazonas
+316,64,Brasil,PR,Quatro Barros
+317,64,Brasil,PR,Quitandinha
+318,64,Brasil,PR,Rio Branco do Sul
+319,64,Brasil,PR,São José Dos Pinhais
+320,64,Brasil,PR,Tijucas Dos Pinhais
+321,64,Brasil,PR,Tunas do Paraná
+322,186,Brasil,PR,Antônio Olinto
+323,186,Brasil,PR,Bituruna
+324,186,Brasil,PR,Carambeí
+325,186,Brasil,PR,Castro
+326,186,Brasil,PR,Cruz Machado
+327,186,Brasil,PR,General Carneiro
+328,186,Brasil,PR,Mallet
+329,186,Brasil,PR,Palmeiras
+330,186,Brasil,PR,Paula Freitas
+331,186,Brasil,PR,Paulo Frontin
+332,186,Brasil,PR,Ponta Grossa
+333,186,Brasil,PR,Porto Vitória
+334,186,Brasil,PR,Rebouças
+335,186,Brasil,PR,São João do Triunfo
+336,186,Brasil,PR,São Mateus do Sul
+337,186,Brasil,PR,Tibagi
+338,186,Brasil,PR,União da Vitória
+339,76,Brasil,RJ,Araruama
+340,76,Brasil,RJ,Maricá
+341,76,Brasil,RJ,São Gonçalo
+342,76,Brasil,RJ,São Pedro da Aldeia
+343,76,Brasil,RJ,Saquarema
+344,76,Brasil,RJ,Tanguá
+345,92,Brasil,RO,Alvorada
+346,92,Brasil,RO,Jarú
+347,92,Brasil,RO,Ji-paraná
+348,92,Brasil,RO,Mirante da Serra
+349,92,Brasil,RO,Nova União
+350,92,Brasil,RO,Ouro Preto
+351,92,Brasil,RO,Teixeirópolis
+352,92,Brasil,RO,Urupá
+353,92,Brasil,RO,Vale do Paraíso
+354,152,Brasil,RS,Alpestre
+355,152,Brasil,RS,Ametista do Sul
+356,152,Brasil,RS,Barra do Guarita
+357,152,Brasil,RS,Barra Funda
+358,152,Brasil,RS,Benjamin Constant do Sul
+359,152,Brasil,RS,Caiçara
+360,152,Brasil,RS,Cerro Grande
+361,152,Brasil,RS,Constantina
+362,152,Brasil,RS,Cristal do Sul
+363,152,Brasil,RS,Engenho Velho
+364,152,Brasil,RS,Entre Rios do Sul
+365,152,Brasil,RS,Erval Seco
+366,152,Brasil,RS,Faxinalzinho
+367,152,Brasil,RS,Frederico Westphalen
+368,152,Brasil,RS,Gramado Dos Loureiros
+369,152,Brasil,RS,Iraí
+370,152,Brasil,RS,Jaboticaba
+371,152,Brasil,RS,Liberato Salzano
+372,152,Brasil,RS,Nonoai
+373,152,Brasil,RS,Novo Tiradentes
+374,152,Brasil,RS,Novo Xingu
+375,152,Brasil,RS,Palmitinho
+376,152,Brasil,RS,Pinhal
+377,152,Brasil,RS,Pinheirinho do Vale
+378,152,Brasil,RS,Planalto
+379,152,Brasil,RS,Rio Dos Índios
+380,152,Brasil,RS,Rodeio Bonito
+381,152,Brasil,RS,Seberi
+382,152,Brasil,RS,Taquaruçu do Sul
+383,152,Brasil,RS,Tenente Portela
+384,152,Brasil,RS,Três Palmeiras
+385,152,Brasil,RS,Trindade do Sul
+386,152,Brasil,RS,Vicente Dutra
+387,152,Brasil,RS,Vista Alegre
+388,152,Brasil,RS,Vista Gaúcha
+389,82,Brasil,RS,Agudo
+390,82,Brasil,RS,Anta Gorda
+391,82,Brasil,RS,Arroio do Meio
+392,82,Brasil,RS,Arroio do Tigre
+393,82,Brasil,RS,Arvorezinha
+394,82,Brasil,RS,Barros Cassal
+395,82,Brasil,RS,Boqueirão do Leão
+396,82,Brasil,RS,Cachoeira do Sul
+397,82,Brasil,RS,Candelária
+398,82,Brasil,RS,Canudos do Vale
+399,82,Brasil,RS,Capitão
+400,82,Brasil,RS,Cerro Branco
+401,82,Brasil,RS,Coqueiro Baixo
+402,82,Brasil,RS,Cruzeiro do Sul
+403,82,Brasil,RS,Dona Francisca
+404,82,Brasil,RS,Doutor Ricardo
+405,82,Brasil,RS,Encantado
+406,82,Brasil,RS,Encruzilhada do Sul
+407,82,Brasil,RS,Estrela Velha
+408,82,Brasil,RS,Faxinal do Soturno
+409,82,Brasil,RS,Fontoura Xavier
+410,82,Brasil,RS,Forquetinha
+411,82,Brasil,RS,General Câmara
+412,82,Brasil,RS,Gramado Xavier
+413,82,Brasil,RS,Herveiras
+414,82,Brasil,RS,Ibarama
+415,82,Brasil,RS,Ilópolis
+416,82,Brasil,RS,Lagoa Bonita do Sul
+417,82,Brasil,RS,Lagoão
+418,82,Brasil,RS,Lajeado
+419,82,Brasil,RS,Marques de Souza
+420,82,Brasil,RS,Mato Leitão
+421,82,Brasil,RS,Muçum
+422,82,Brasil,RS,Nova Bréscia
+423,82,Brasil,RS,Nova Palma
+424,82,Brasil,RS,Novo Cabrais
+425,82,Brasil,RS,Pantano Grande
+426,82,Brasil,RS,Paraíso do Sul
+427,82,Brasil,RS,Passa-sete
+428,82,Brasil,RS,Passo do Sobrado
+429,82,Brasil,RS,Pinhal Grande
+430,82,Brasil,RS,Pouso Novo
+431,82,Brasil,RS,Progresso
+432,82,Brasil,RS,Putinga
+433,82,Brasil,RS,Relvado
+434,82,Brasil,RS,Restinga Sêca
+435,82,Brasil,RS,Rio Pardo
+436,82,Brasil,RS,Roca Sales
+437,82,Brasil,RS,Santa Clara do Sul
+438,82,Brasil,RS,Santa Cruz do Sul
+439,82,Brasil,RS,São José do Herval
+440,82,Brasil,RS,Segredo
+441,82,Brasil,RS,Sério
+442,82,Brasil,RS,Sinimbu
+443,82,Brasil,RS,Sobradinho
+444,82,Brasil,RS,Travesseiro
+445,82,Brasil,RS,Tunas
+446,82,Brasil,RS,Vale do Sol
+447,82,Brasil,RS,Vale Verde
+448,82,Brasil,RS,Venâncio Aires
+449,82,Brasil,RS,Vera Cruz
+450,154,Brasil,RS,Alvorada
+451,154,Brasil,RS,Araricá
+452,154,Brasil,RS,Barão
+453,154,Brasil,RS,Bom Princípio
+454,154,Brasil,RS,Bom Retiro do Sul
+455,154,Brasil,RS,Brochier do Marata
+456,154,Brasil,RS,Cachoeirinha
+457,154,Brasil,RS,Campo Bom
+458,154,Brasil,RS,Canoas
+459,154,Brasil,RS,Capela de Santana
+460,154,Brasil,RS,Colinas
+461,154,Brasil,RS,Dois Irmãos
+462,154,Brasil,RS,Estância Velha
+463,154,Brasil,RS,Esteio
+464,154,Brasil,RS,Estrela
+465,154,Brasil,RS,Fazenda Vilanova
+466,154,Brasil,RS,Glorinha
+467,154,Brasil,RS,Gravataí
+468,154,Brasil,RS,Harmonia
+469,154,Brasil,RS,Igrejinha
+470,154,Brasil,RS,Imigrante
+471,154,Brasil,RS,Ivoti
+472,154,Brasil,RS,Lindolfo Collor
+473,154,Brasil,RS,Maratá
+474,154,Brasil,RS,Montenegro
+475,154,Brasil,RS,Morro Reuter
+476,154,Brasil,RS,Nova Hartz
+477,154,Brasil,RS,Nova Santa Rita
+478,154,Brasil,RS,Novo Hamburgo
+479,154,Brasil,RS,Pareci Novo
+480,154,Brasil,RS,Parobé
+481,154,Brasil,RS,Paverama
+482,154,Brasil,RS,Poço Das Antas
+483,154,Brasil,RS,Portão
+484,154,Brasil,RS,Porto Alegre
+485,154,Brasil,RS,Presidente Lucena
+486,154,Brasil,RS,Salvador do Sul
+487,154,Brasil,RS,Santa Maria do Herval
+488,154,Brasil,RS,São José do Hortêncio
+489,154,Brasil,RS,São José do Sul
+490,154,Brasil,RS,São Leopoldo
+491,154,Brasil,RS,São Pedro da Serra
+492,154,Brasil,RS,São Sebastião do Caí
+493,154,Brasil,RS,São Vendelino
+494,154,Brasil,RS,Sapiranga
+495,154,Brasil,RS,Sapucaia do Sul
+496,154,Brasil,RS,Tabaí
+497,154,Brasil,RS,Taquara
+498,154,Brasil,RS,Taquari
+499,154,Brasil,RS,Teutônia
+500,154,Brasil,RS,Triunfo
+501,154,Brasil,RS,Tupandi
+502,154,Brasil,RS,Viamão
+503,154,Brasil,RS,Westfália
+504,78,Brasil,RS,Aratiba
+505,78,Brasil,RS,Áurea
+506,78,Brasil,RS,Barão de Cotegipe
+507,78,Brasil,RS,Barra do Rio Azul
+508,78,Brasil,RS,Campinas do Sul
+509,78,Brasil,RS,Carlos Gomes
+510,78,Brasil,RS,Centenário
+511,78,Brasil,RS,Charrua
+512,78,Brasil,RS,Cruzaltense
+513,78,Brasil,RS,Erebango
+514,78,Brasil,RS,Erechim
+515,78,Brasil,RS,Erval Grande
+516,78,Brasil,RS,Estação
+517,78,Brasil,RS,Floriano Peixoto
+518,78,Brasil,RS,Gaurama
+519,78,Brasil,RS,Getúlio Vargas
+520,78,Brasil,RS,Ipiranga do Sul
+521,78,Brasil,RS,Itatiba do Sul
+522,78,Brasil,RS,Jacutinga
+523,78,Brasil,RS,Marcelino Ramos
+524,78,Brasil,RS,Mariano Moro
+525,78,Brasil,RS,Maximiliano de Almeida
+526,78,Brasil,RS,Paim Filho
+527,78,Brasil,RS,Paulo Bento
+528,78,Brasil,RS,Ponte Preta
+529,78,Brasil,RS,Quatro Irmãos
+530,78,Brasil,RS,São Valentim
+531,78,Brasil,RS,Sertão
+532,78,Brasil,RS,Severiano de Almeida
+533,78,Brasil,RS,Três Arroios
+534,78,Brasil,RS,Viadutos
+535,159,Brasil,RS,Alto Feliz
+536,159,Brasil,RS,Antônio Prado
+537,159,Brasil,RS,Arroio do Sal
+538,159,Brasil,RS,Arroio Dos Ratos
+539,159,Brasil,RS,Balneário Pinhal
+540,159,Brasil,RS,Barão do Triunfo
+541,159,Brasil,RS,Barra do Ribeiro
+542,159,Brasil,RS,Bento Gonçalves
+543,159,Brasil,RS,Boa Vista do Sul
+544,159,Brasil,RS,Butiá
+545,159,Brasil,RS,Camargo
+546,159,Brasil,RS,Campestre da Serra
+547,159,Brasil,RS,Canela
+548,159,Brasil,RS,Capão da Canoa
+549,159,Brasil,RS,Capivari do Sul
+550,159,Brasil,RS,Caraá
+551,159,Brasil,RS,Carlos Barbosa
+552,159,Brasil,RS,Casca
+553,159,Brasil,RS,Caxias do Sul
+554,159,Brasil,RS,Cerro Grande do Sul
+555,159,Brasil,RS,Charqueadas
+556,159,Brasil,RS,Ciríaco
+557,159,Brasil,RS,Coronel Pilar
+558,159,Brasil,RS,Cotiporã
+559,159,Brasil,RS,David Canabarro
+560,159,Brasil,RS,Dois Lageados
+561,159,Brasil,RS,Dom Pedro de Alcântara
+562,159,Brasil,RS,Eldorado do Sul
+563,159,Brasil,RS,Fagundes Varela
+564,159,Brasil,RS,Farroupilha
+565,159,Brasil,RS,Feliz
+566,159,Brasil,RS,Flores da Cunha
+567,159,Brasil,RS,Garibaldi
+568,159,Brasil,RS,Gentil
+569,159,Brasil,RS,Gramado
+570,159,Brasil,RS,Guabiju
+571,159,Brasil,RS,Guaíba
+572,159,Brasil,RS,Guaporé
+573,159,Brasil,RS,Ibiraiaras
+574,159,Brasil,RS,Imbé
+575,159,Brasil,RS,Ipê
+576,159,Brasil,RS,Itati
+577,159,Brasil,RS,Linha Nova
+578,159,Brasil,RS,Mampituba
+579,159,Brasil,RS,Maquiné
+580,159,Brasil,RS,Marau
+581,159,Brasil,RS,Mariana Pimentel
+582,159,Brasil,RS,Minas do Leão
+583,159,Brasil,RS,Montauri
+584,159,Brasil,RS,Monte Belo do Sul
+585,159,Brasil,RS,Morrinhos do Sul
+586,159,Brasil,RS,Mostardas
+587,159,Brasil,RS,Muliterno
+588,159,Brasil,RS,Nicolau Vergueiro
+589,159,Brasil,RS,Nova Araçá
+590,159,Brasil,RS,Nova Bassano
+591,159,Brasil,RS,Nova Pádua
+592,159,Brasil,RS,Nova Petrópolis
+593,159,Brasil,RS,Nova Prata
+594,159,Brasil,RS,Nova Roma do Sul
+595,159,Brasil,RS,Osório
+596,159,Brasil,RS,Palmares do Sul
+597,159,Brasil,RS,Paraí
+598,159,Brasil,RS,Picada Café
+599,159,Brasil,RS,Pinto Bandeira
+600,159,Brasil,RS,Protásio Alves
+601,159,Brasil,RS,Riozinho
+602,159,Brasil,RS,Rolante
+603,159,Brasil,RS,Santa Tereza
+604,159,Brasil,RS,Santo Antônio da Patrulha
+605,159,Brasil,RS,Santo Antônio do Palma
+606,159,Brasil,RS,São Domingos do Sul
+607,159,Brasil,RS,São Francisco de Paula
+608,159,Brasil,RS,São Jerônimo
+609,159,Brasil,RS,São Jorge
+610,159,Brasil,RS,São Marcos
+611,159,Brasil,RS,São Valentim do Sul
+612,159,Brasil,RS,Sentinela do Sul
+613,159,Brasil,RS,Serafina Corrêa
+614,159,Brasil,RS,Sertão Santana
+615,159,Brasil,RS,Tapes
+616,159,Brasil,RS,Tavares
+617,159,Brasil,RS,Terra de Areia
+618,159,Brasil,RS,Torres
+619,159,Brasil,RS,Tramandaí
+620,159,Brasil,RS,Três Cachoeiras
+621,159,Brasil,RS,Três Coroas
+622,159,Brasil,RS,Três Forquilhas
+623,159,Brasil,RS,União da Serra
+624,159,Brasil,RS,Vale Real
+625,159,Brasil,RS,Vanini
+626,159,Brasil,RS,Veranópolis
+627,159,Brasil,RS,Vespasiano Correa
+628,159,Brasil,RS,Vila Flores
+629,159,Brasil,RS,Vila Maria
+630,159,Brasil,RS,Vista Alegre do Prata
+631,159,Brasil,RS,Xangri-lá
+632,149,Brasil,SC,Abdon Batista
+633,149,Brasil,SC,Água Doce
+634,149,Brasil,SC,Arabutã
+635,149,Brasil,SC,Arroio Trinta
+636,149,Brasil,SC,Brunópolis
+637,149,Brasil,SC,Caçador
+638,149,Brasil,SC,Calmon
+639,149,Brasil,SC,Campos Novos
+640,149,Brasil,SC,Capinzal
+641,149,Brasil,SC,Catanduvas
+642,149,Brasil,SC,Concórdia
+643,149,Brasil,SC,Erval Velho
+644,149,Brasil,SC,Faxinal Dos Guedes
+645,149,Brasil,SC,Fraiburgo
+646,149,Brasil,SC,Frei Rogério
+647,149,Brasil,SC,Herval D’oeste
+648,149,Brasil,SC,Ibiam
+649,149,Brasil,SC,Ibicaré
+650,149,Brasil,SC,Iomerê
+651,149,Brasil,SC,Ipira
+652,149,Brasil,SC,Ipumirim
+653,149,Brasil,SC,Irani
+654,149,Brasil,SC,Jaborá
+655,149,Brasil,SC,Joaçaba
+656,149,Brasil,SC,Lacerdópolis
+657,149,Brasil,SC,Lebon Régis
+658,149,Brasil,SC,Lindóia do Sul
+659,149,Brasil,SC,Luzerna
+660,149,Brasil,SC,Macieira
+661,149,Brasil,SC,Matos Costa
+662,149,Brasil,SC,Monte Carlo
+663,149,Brasil,SC,Ouro
+664,149,Brasil,SC,Passos Maia
+665,149,Brasil,SC,Peritiba
+666,149,Brasil,SC,Pinheiro Preto
+667,149,Brasil,SC,Piratuba
+668,149,Brasil,SC,Ponte Serrada
+669,149,Brasil,SC,Porto União
+670,149,Brasil,SC,Presidente Castelobranco
+671,149,Brasil,SC,Rio Das Antas
+672,149,Brasil,SC,Salto Veloso
+673,149,Brasil,SC,Tangará
+674,149,Brasil,SC,Treze Tílias
+675,149,Brasil,SC,Vargeão
+676,149,Brasil,SC,Vargem
+677,149,Brasil,SC,Vargem Bonita
+678,149,Brasil,SC,Videira
+679,149,Brasil,SC,Zortéa
+680,100,Brasil,SC,Dona Emma
+681,100,Brasil,SC,Ibirama
+682,100,Brasil,SC,José Boiteux
+683,100,Brasil,SC,Presidente Getúlio
+684,100,Brasil,SC,Vitor Meireles
+685,100,Brasil,SC,Witimarsum
+686,144,Brasil,SC,Santa Cecilia
+687,144,Brasil,SC,São Cristóvão do Sul
+688,145,Brasil,SP,Águas de Santa Bárbara
+689,145,Brasil,SP,Angatuba
+690,145,Brasil,SP,Arandu
+691,145,Brasil,SP,Areiópolis
+692,145,Brasil,SP,Avaré
+693,145,Brasil,SP,Barão de Antonina
+694,145,Brasil,SP,Bernardino de Campos
+695,145,Brasil,SP,Botucatu
+696,145,Brasil,SP,Cerqueira César
+697,145,Brasil,SP,Coronel Macedo
+698,145,Brasil,SP,Fatura
+699,145,Brasil,SP,Ipauçu
+700,145,Brasil,SP,Itaí
+701,145,Brasil,SP,Itaporanga
+702,145,Brasil,SP,Itatinba
+703,145,Brasil,SP,Lençóis Paulista
+704,145,Brasil,SP,Manduri
+705,145,Brasil,SP,Óleo
+706,145,Brasil,SP,Paranapanema
+707,145,Brasil,SP,Pardinho
+708,145,Brasil,SP,Piraju
+709,145,Brasil,SP,Pratânia
+710,145,Brasil,SP,São Manuel
+711,145,Brasil,SP,Sarutaiá
+712,145,Brasil,SP,Taguaí
+713,145,Brasil,SP,Taquarituba
+714,145,Brasil,SP,Tejupá
+715,145,Brasil,SP,Timburi
+716,164,Brasil,SP,Adolfo
+717,164,Brasil,SP,Avanhandava
+718,164,Brasil,SP,Balbinos
+719,164,Brasil,SP,Barbosa
+720,164,Brasil,SP,Cafelândia
+721,164,Brasil,SP,Guaiaçara
+722,164,Brasil,SP,Guarantã
+723,164,Brasil,SP,Irapuã
+724,164,Brasil,SP,Lins
+725,164,Brasil,SP,Mendonça
+726,164,Brasil,SP,Novo Horizonte
+727,164,Brasil,SP,Pirajuí
+728,164,Brasil,SP,Pongaí
+729,164,Brasil,SP,Promissão
+730,164,Brasil,SP,Sabino
+731,164,Brasil,SP,Sales
+732,164,Brasil,SP,Uru
+733,105,Brasil,SP,Adamantina
+734,105,Brasil,SP,Andradina
+735,105,Brasil,SP,Arco – Íris
+736,105,Brasil,SP,Bastos
+737,105,Brasil,SP,Bento de Abreu
+738,105,Brasil,SP,Castilho
+739,105,Brasil,SP,Clementina
+740,105,Brasil,SP,Dracena
+741,105,Brasil,SP,Flora Rica
+742,105,Brasil,SP,Flórida Paulista
+743,105,Brasil,SP,Gabriel Monteiro
+744,105,Brasil,SP,Guaraçaí
+745,105,Brasil,SP,Guararapes
+746,105,Brasil,SP,Iacri
+747,105,Brasil,SP,Inúbia Paulista
+748,105,Brasil,SP,Irapuru
+749,105,Brasil,SP,Junqueirópolis
+750,105,Brasil,SP,Lavínia
+751,105,Brasil,SP,Lucélia
+752,105,Brasil,SP,Luiziânia
+753,105,Brasil,SP,Mariápolis
+754,105,Brasil,SP,Mirandópolis
+755,105,Brasil,SP,Monte Castelo
+756,105,Brasil,SP,Murutinga do Sul
+757,105,Brasil,SP,Nova Guataporanga
+758,105,Brasil,SP,Nova Independência
+759,105,Brasil,SP,Osvaldo Cruz
+760,105,Brasil,SP,Ouro Verde
+761,105,Brasil,SP,Pacaembu
+762,105,Brasil,SP,Panorama
+763,105,Brasil,SP,Parapuã
+764,105,Brasil,SP,Paulicéia
+765,105,Brasil,SP,Piacatu
+766,105,Brasil,SP,Pracinha
+767,105,Brasil,SP,Rinópolis
+768,105,Brasil,SP,Rubiácea
+769,105,Brasil,SP,Sagres
+770,105,Brasil,SP,Salmourão
+771,105,Brasil,SP,Santa Mercedes
+772,105,Brasil,SP,Santópolis do Aguapeí
+773,105,Brasil,SP,São J. do Pau D’alho
+774,105,Brasil,SP,Tupã
+775,105,Brasil,SP,Tupi Paulista
+776,105,Brasil,SP,Valparaíso

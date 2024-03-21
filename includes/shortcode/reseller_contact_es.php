@@ -235,15 +235,14 @@ function fr_reseller_contact_es_shortcode() {
                 savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
                 var localidades = {"stores": savedData};
 
-                $('.reseller-mail input').val('vendas@agritech.ind.br');
-                $('.mail p').show();
-                $('.phone-2').show();
-                $('.address_wrapper').html('Av. dos Trabalhadores, 145 Vila Castelo Branco 13338-050 Indaiatuba, SP');
-                $('.phone-1 p').html('<a href="#">(19) 3801-9000</a>');
-                $('.phone-2 p').html('<a href="#">(19) 3801-9049</a>');
-                $('.mail p').html('<a href="#">vendas@agritech.ind.br</a>');
-                localidades.stores.forEach(function(localidade) {
-                    if (cidadeSelecionada == localidade.city) {
+                var empresasNaCidade = localidades.stores.filter(function(localidade) {
+                    return localidade.city_atuacao === cidadeSelecionada;
+                });
+
+                if (empresasNaCidade.length > 0) {
+                    empresasNaCidade.forEach(function(localidade) {
+
+                   
                         var enderecoCompleto = localidade.address + (localidade.numero ? ', ' + localidade.numero : '');
                         $('.address_wrapper').html(enderecoCompleto);
                         $('.phone-1 p').html('<a href="#">'+localidade.phone+'</a>');
@@ -262,9 +261,16 @@ function fr_reseller_contact_es_shortcode() {
                         }else{
                             $('.mail p').html('<a href="#">vendas@agritech.ind.br</a>');
                         }
-
-                    }
-                });
+                    });
+                }else{
+                    $('.reseller-mail input').val('vendas@agritech.ind.br');
+                    $('.mail p').show();
+                    $('.phone-2').show();
+                    $('.address_wrapper').html('Av. dos Trabalhadores, 145 Vila Castelo Branco 13338-050 Indaiatuba, SP');
+                    $('.phone-1 p').html('<a href="#">(19) 3801-9000</a>');
+                    $('.phone-2 p').html('<a href="#">(19) 3801-9049</a>');
+                    $('.mail p').html('<a href="#">vendas@agritech.ind.br</a>');
+                }
 
             });
 

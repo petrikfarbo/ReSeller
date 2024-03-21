@@ -470,8 +470,6 @@ function fr_reseller_form_en_shortcode() {
     </script>
 
     <?php
-    $resellers_data = $wpdb->get_results("SELECT * FROM $table_name", ARRAY_A);
-    file_put_contents('wp-content/plugins/reseller/includes/shortcode/resellers.json', json_encode($resellers_data));
 
     $countrys = $wpdb->get_results("SELECT DISTINCT country FROM $table_name", ARRAY_A);
     ?>
