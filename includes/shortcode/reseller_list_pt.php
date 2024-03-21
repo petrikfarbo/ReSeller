@@ -2,7 +2,7 @@
 function fr_reseller_list_pt_shortcode(){
     ob_start(); 
     ?>
-    <section class="section mcb-section mfn-default-section mcb-section-c8wbnrlb default-width flex">
+    <section class="section mcb-section mfn-default-section mcb-section-c8wbnrlb default-width flex fr-data-icon" style="display: none;">
         <div class="mcb-background-overlay"></div>
         <div class="section_wrapper mfn-wrapper-for-wraps mcb-section-inner mcb-section-inner-c8wbnrlb">
             <div class="wrap mcb-wrap mcb-wrap-w6hbnmj5 one tablet-one laptop-one mobile-one clearfix" data-desktop-col="one" data-laptop-col="laptop-one" data-tablet-col="tablet-one" data-mobile-col="mobile-one" style="">
@@ -27,7 +27,7 @@ function fr_reseller_list_pt_shortcode(){
 
 
     <div class="mcb-background-overlay"></div>
-    <div class="fr-data section_wrapper mfn-wrapper-for-wraps mcb-section-inner mcb-section-inner-ednlxlf8r" style="margin: 0px !important;">
+    <div class="fr-data section_wrapper mfn-wrapper-for-wraps mcb-section-inner mcb-section-inner-ednlxlf8r" style="margin: 0px !important; display: none;">
         <?php
         global $wpdb;
         $table_name = $wpdb->prefix . 'reseller_data';

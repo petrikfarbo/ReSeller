@@ -195,6 +195,8 @@ function fr_reseller_form_pt_shortcode() {
                 e.preventDefault();
                 var zipcode = $('#zipcode').val();
                 if (typeof zipcode !== "undefined" && zipcode !== "") {
+                    $('.fr-data').show();
+                    $('.fr-data-icon').show();
                     zipcode = zipcode.replace('-', '');
 
                     $.ajax({
@@ -269,6 +271,8 @@ function fr_reseller_form_pt_shortcode() {
             // Evento ao alterar o país
             $('#country').on('change', function() {
                 var country = $('#country').val();
+                $('.fr-data').show();
+                $('.fr-data-icon').show();
                 if (country.toUpperCase() === "BRASIL" || country.toUpperCase() === "BR") {
                     $("#zipcode").val('');
 
@@ -335,6 +339,8 @@ function fr_reseller_form_pt_shortcode() {
             // Evento ao alterar o estado
             $('#state').on('change', function() {
                 var estadoSelecionado = $(this).val();
+                $('.fr-data').show();
+                $('.fr-data-icon').show();
                 $('#city').prop('disabled', false);
                 $("#zipcode").val('');
 
