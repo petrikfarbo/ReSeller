@@ -142,9 +142,7 @@ function fr_reseller_form_en_shortcode() {
                     var tratoresIcon = localidade.tratores == 1 ? '<strong><img loading="lazy" class="alignright wp-image-1262" src="<?=plugins_url('/', __FILE__).'img/trator.svg';?>" alt="" width="30" height="30" /></strong>' : '';
                     // Verifica se implementos é 1 e inclui o ícone
                     var implementosIcon = localidade.implementos == 1 ? '<strong><img loading="lazy" class="alignright wp-image-1262" src="<?=plugins_url('/', __FILE__).'img/implemento.svg';?>" alt="" width="30" height="30" /></strong>' : '';
-                    // Verifica se peças é 1 e inclui o ícone
-                    var pecasIcon = localidade.pecas == 1 ? '<i class="fas fa-cogs"></i><span class="fr_cogs"> Parts</span>' : '';
-                    
+
                     var html = '<div class="wrap mcb-wrap mcb-wrap-fr one-second tablet-one-second laptop-one-second mobile-one clearfix" data-desktop-col="one-second" data-laptop-col="laptop-one-second" data-tablet-col="tablet-one-second" data-mobile-col="mobile-one">' +
                         '<div class="mcb-wrap-inner mcb-wrap-inner-fr mfn-module-wrapper mfn-wrapper-for-wraps">' +
                         '<div class="mcb-wrap-background-overlay"></div>' +
@@ -195,6 +193,8 @@ function fr_reseller_form_en_shortcode() {
                 e.preventDefault();
                 var zipcode = $('#zipcode').val();
                 if (typeof zipcode !== "undefined" && zipcode !== "") {
+                    $('.fr-data').show();
+                    $('.fr-data-icon').show();
                     zipcode = zipcode.replace('-', '');
 
                     $.ajax({
@@ -216,23 +216,46 @@ function fr_reseller_form_en_shortcode() {
 
                                 var localidades = {"stores": savedData};
 
-                                localidades.stores.forEach(function(localidade) {
-                                    if (localidade.latitude && localidade.longitude) {
-                                        var distancia = calcularDistancia(parseFloat(localidade.latitude), parseFloat(localidade.longitude), latitudeReferencia, longitudeReferencia);
-                                        localidade.distancia = distancia;
-                                    } else {
-                                        localidade.distancia = Infinity; 
-                                    }
+                                // Filtrar empresas na mesma cidade do CEP
+                                var empresasMesmaCidade = localidades.stores.filter(function(localidade) {
+                                    return localidade.city_atuacao === data.city;
                                 });
 
-                                localidades.stores.sort(function(a, b) {
-                                    return a.distancia - b.distancia;
-                                });
+                                if (empresasMesmaCidade.length > 0) {
+                                    fillClosestCompanies(empresasMesmaCidade.slice(0, 4)); // Exibir empresas da mesma cidade
+                                } else {
+                                    localidades.stores.forEach(function(localidade) {
+                                        if (localidade.latitude && localidade.longitude) {
+                                            var distancia = calcularDistancia(parseFloat(localidade.latitude), parseFloat(localidade.longitude), latitudeReferencia, longitudeReferencia);
+                                            localidade.distancia = distancia;
+                                        } else {
+                                            localidade.distancia = Infinity; 
+                                        }
+                                    });
 
-                                // Limitar a exibição das 26 empresas mais próximas
-                                var empresasMaisProximas = localidades.stores.slice(0, 4);
+                                    localidades.stores.sort(function(a, b) {
+                                        return a.distancia - b.distancia;
+                                    });
 
-                                fillClosestCompanies(empresasMaisProximas);
+                                    // Use um conjunto para rastrear os IDs únicos
+                                    var idSet = new Set();
+                                    // Filtre os dados, removendo aqueles com IDs repetidos
+                                    var filteredStores = localidades.stores.filter(function(item) {
+                                        // Se o ID já estiver no conjunto, retorne false (para remover este item)
+                                        if (idSet.has(item.id)) {
+                                            return false;
+                                        }
+                                        // Caso contrário, adicione o ID ao conjunto e retorne true (para manter este item)
+                                        idSet.add(item.id);
+                                        return true;
+                                    });
+
+                                    // Limitar a exibição das 4 empresas mais próximas
+                                    var empresasMaisProximas = filteredStores.slice(0, 4);
+
+                                    fillClosestCompanies(empresasMaisProximas);
+                                    
+                                }
                             }
                         },
                         error: function(xhr, status, error) {
@@ -242,17 +265,22 @@ function fr_reseller_form_en_shortcode() {
                 }
             });
 
+
             // Evento ao alterar o país
             $('#country').on('change', function() {
                 var country = $('#country').val();
+                $('.fr-data').show();
+                $('.fr-data-icon').show();
                 if (country.toUpperCase() === "BRASIL" || country.toUpperCase() === "BR") {
+                    $("#zipcode").val('');
+
                     $("#state").empty();
                     $('#state').prop('disabled', false);
-                    $("#state").append("<option>State</option>");
+                    $("#state").append("<option>Estados</option>");
 
                     $("#city").empty();
                     $('#city').prop('disabled', true);
-                    $("#city").append("<option>City</option>");
+                    $("#city").append("<option>Cidades</option>");
                     
                     var states = [
                         { value: "AC", text: "Acre" },
@@ -309,7 +337,10 @@ function fr_reseller_form_en_shortcode() {
             // Evento ao alterar o estado
             $('#state').on('change', function() {
                 var estadoSelecionado = $(this).val();
+                $('.fr-data').show();
+                $('.fr-data-icon').show();
                 $('#city').prop('disabled', false);
+                $("#zipcode").val('');
 
                 loadingCity(estadoSelecionado);
                 fetchDataAndSaveToSession();
@@ -368,40 +399,64 @@ function fr_reseller_form_en_shortcode() {
                 fillClosestCompanies(empresasMaisProximas);
             });
 
-            // Evento ao alterar a cidade
+            //Evento ao alterar a cidade
             $('#city').on('change', function() {
                 var cidadeSelecionada = $(this).val();
+                $("#zipcode").val('');
+                
                 fetchDataAndSaveToSession();
                 savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
 
                 var localidades = {"stores": savedData};
                 $.ajax({
-                    url: '<?=plugins_url('/', __FILE__).'cidades.json';?>', // Substitua 'cidades.json' pelo caminho do seu arquivo JSON
+                    url: '<?=plugins_url('/', __FILE__).'cidades.json';?>',
                     dataType: 'json',
                     success: function(data) {
-                        var coordenadasCidades = data; // Supondo que o arquivo JSON já tenha um formato de objeto com as coordenadas das cidades
+                        var coordenadasCidades = data;
 
                         if (coordenadasCidades.hasOwnProperty(cidadeSelecionada)) {
                             var latitudeReferencia = coordenadasCidades[cidadeSelecionada][0];
                             var longitudeReferencia = coordenadasCidades[cidadeSelecionada][1];
 
-                            localidades.stores.forEach(function(localidade) {
-                                if (localidade.latitude && localidade.longitude) {
-                                    var distancia = calcularDistancia(parseFloat(localidade.latitude), parseFloat(localidade.longitude), latitudeReferencia, longitudeReferencia);
-                                    localidade.distancia = distancia;
-                                } else {
-                                    localidade.distancia = Infinity; 
-                                }
+                            var empresasNaCidade = localidades.stores.filter(function(localidade) {
+                                return localidade.city_atuacao === cidadeSelecionada;
                             });
 
-                            localidades.stores.sort(function(a, b) {
-                                return a.distancia - b.distancia;
-                            });
+                            if (empresasNaCidade.length > 0) {
+                                fillClosestCompanies(empresasNaCidade.slice(0, 4)); // Exibir empresas da mesma cidade
+                            } else {
+                                localidades.stores.forEach(function(localidade) {
+                                    if (localidade.latitude && localidade.longitude) {
+                                        var distancia = calcularDistancia(parseFloat(localidade.latitude), parseFloat(localidade.longitude), latitudeReferencia, longitudeReferencia);
+                                        localidade.distancia = distancia;
+                                    } else {
+                                        localidade.distancia = Infinity; 
+                                    }
+                                });
 
-                            // Limitar a exibição das 26 empresas mais próximas
-                            var empresasMaisProximas = localidades.stores.slice(0, 4);
+                                localidades.stores.sort(function(a, b) {
+                                    return a.distancia - b.distancia;
+                                });
 
-                            fillClosestCompanies(empresasMaisProximas);
+                                // Use um conjunto para rastrear os IDs únicos
+                                var idSet = new Set();
+                                // Filtre os dados, removendo aqueles com IDs repetidos
+                                var filteredStores = localidades.stores.filter(function(item) {
+                                    // Se o ID já estiver no conjunto, retorne false (para remover este item)
+                                    if (idSet.has(item.id)) {
+                                        return false;
+                                    }
+                                    // Caso contrário, adicione o ID ao conjunto e retorne true (para manter este item)
+                                    idSet.add(item.id);
+                                    return true;
+                                });
+
+                                // Limitar a exibição das 4 empresas mais próximas
+                                var empresasMaisProximas = filteredStores.slice(0, 4);
+
+
+                                fillClosestCompanies(empresasMaisProximas);
+                            }
                         } else {
                             console.error("Coordenadas não encontradas para a cidade selecionada");
                         }

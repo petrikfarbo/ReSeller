@@ -142,9 +142,7 @@ function fr_reseller_form_pt_shortcode() {
                     var tratoresIcon = localidade.tratores == 1 ? '<strong><img loading="lazy" class="alignright wp-image-1262" src="<?=plugins_url('/', __FILE__).'img/trator.svg';?>" alt="" width="30" height="30" /></strong>' : '';
                     // Verifica se implementos é 1 e inclui o ícone
                     var implementosIcon = localidade.implementos == 1 ? '<strong><img loading="lazy" class="alignright wp-image-1262" src="<?=plugins_url('/', __FILE__).'img/implemento.svg';?>" alt="" width="30" height="30" /></strong>' : '';
-                    // Verifica se peças é 1 e inclui o ícone
-                    var pecasIcon = localidade.pecas == 1 ? '<i class="fas fa-cogs"></i><span class="fr_cogs"> Peças</span>' : '';
-                    
+
                     var html = '<div class="wrap mcb-wrap mcb-wrap-fr one-second tablet-one-second laptop-one-second mobile-one clearfix" data-desktop-col="one-second" data-laptop-col="laptop-one-second" data-tablet-col="tablet-one-second" data-mobile-col="mobile-one">' +
                         '<div class="mcb-wrap-inner mcb-wrap-inner-fr mfn-module-wrapper mfn-wrapper-for-wraps">' +
                         '<div class="mcb-wrap-background-overlay"></div>' +
