@@ -1,7 +1,7 @@
 <?php
 /**
 Plugin Name: ReSeller
-Description: Plugin de gerenciamento de revendedores para WordPress
+Description: O plugin ReSeller oferece uma maneira simples e eficaz de gerenciar e oferecer o contato com filiais/revendedoras diretamente do seu site WordPress.
 Version: 2.1.0
 Author: Fartech TI
 Author URI: https://www.farbosolutions.com.br/
