@@ -6,13 +6,15 @@ function fr_reseller_contact_pt_shortcode() {
 
     $reseller_email = isset($_GET['data']) ? base64_decode($_GET['data']) : 'vendas@agritech.ind.br'; //alterar email default para envio caso ñ tenha representante na região
 
-    $email = $wpdb->get_results("SELECT DISTINCT email, email2 FROM $table_name WHERE email = '$reseller_email' OR email2 = '$reseller_email'", ARRAY_A);
+    $stmt = $wpdb->prepare("SELECT DISTINCT email, email2 FROM $table_name WHERE email = %s OR email2 = %s", $reseller_email, $reseller_email);
+    $email = $wpdb->get_results($stmt, ARRAY_A);
 
-    if (count($email) > 0) {
-        echo '<input type="email" style="display:none" class="reseller-email-contact" value="'.$reseller_email.'">';
-    } else {
-        echo '<input type="email" style="display:none" class="reseller-email-contact" value="vendas@agritech.ind.br">';
-    }
+    // Verifica se o email do revendedor foi encontrado
+    $reseller_found = !empty($email);
+    $reseller_email_value = $reseller_found ? $reseller_email : 'vendas@agritech.ind.br';
+
+    // Saída do campo de email do revendedor
+    echo '<input type="email" style="display:none" class="reseller-email-contact" value="'.$reseller_email_value.'">';
 
     ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

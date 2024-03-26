@@ -134,7 +134,7 @@ function fr_reseller_form_pt_shortcode() {
                     
                     var fax = localidade.fax ? '<span class="fr-data-fax"><strong>Fax:</strong> </span><span class="fr-data-fax-info">' + localidade.fax + '</span><br />' : '';
                     var email2 = localidade.email2 ? '<strong><span class="fr-data-email">E-mail: </span></strong><a href="<?= get_site_url();?>/pt-br/fale-conosco?data=' + btoa(localidade.email2) + '" class="fr-data-email-info">' + localidade.email2 + '</a><br />' : '';
-                    var state = localidade.state ? '<span class="fr-data-country-state">'+nomeEstado+' - '+localidade.country+'</span>' : '<span class="fr-data-country">'+localidade.contry+'</span>';
+                    var state = localidade.state ? '<span class="fr-data-country-state">'+nomeEstado+' - '+localidade.country+'</span>' : '<span class="fr-data-country">'+localidade.country+'</span>';
                     
                     
                     
