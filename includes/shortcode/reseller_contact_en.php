@@ -20,7 +20,7 @@ function fr_reseller_contact_en_shortcode() {
         jQuery(document).ready(function($) {
             $('.wpcf7-fr-return').hide();
             var reseller_email = $('.reseller-email-contact').val();
-            if(reseller_email != 'vendas@agritech.ind.br'){
+            if(reseller_email){
                 $('.reseller-mail input').val(reseller_email);
             }
 
@@ -278,25 +278,34 @@ function fr_reseller_contact_en_shortcode() {
             $('.wpcf7-form').submit((event) => {
                 event.preventDefault();
 
-                // Obtenha os valores dos campos do formulário.
-                //const name = $('#fr-your-name').val();
-                //const email = $('#fr-your-email').val();
-                const fr_reseller_email = $('#fr-reseller-email').val();
-                //const message = $('#fr-your-message').val();
+                var isValid = true;
 
-                //fetchDataAndSaveToSession();
+                // Verificar se algum campo está vazio
+                $('.wpcf7-form').find('input[type="text"], input[type="email"]').each(function() {
+                    if ($(this).val().trim() === '') {
+                        isValid = false;
+                    }
+                });
+
+                const fr_reseller_email = $('#fr-reseller-email').val();
                 savedData = JSON.parse(sessionStorage.getItem('resellers_data'));
                 var localidades = {"stores": savedData};
 
+                var emailValido = false;
                 localidades.stores.forEach(function(localidade) {
                     if (fr_reseller_email == localidade.email || fr_reseller_email == localidade.email2 || fr_reseller_email == "vendas@agritech.ind.br") {
-                        $('.wpcf7-fr-return').show();
-                        $('.wpcf7-form').submit();
-                    }else {
-                        //alert('Email de revendedor inválido.');
+                        emailValido = true;
+                        return;
                     }
                 });
-                
+
+                // Verificar se todos os campos são válidos antes de prosseguir com o envio do formulário
+                if (isValid && emailValido) {
+                    $('.wpcf7-fr-return').show();
+                    $('.wpcf7-form').submit();
+                }else{
+                    location.reload();
+                }
             });
         });
     </script>

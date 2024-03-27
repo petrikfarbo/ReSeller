@@ -154,7 +154,7 @@ function fr_reseller_list_en_shortcode(){
 
                                     <?= (isset($reseller['fax']) && !empty($reseller['fax'])) ? '<span class="fr-data-fax"><strong>Fax:</strong> </span><span class="fr-data-fax-info>' . $reseller['fax'] . '</span><br />' : '' ; ?>
 
-                                    <strong><span class="fr-data-email">E-mail: </span></strong><a class="fr-data-email-info" href="<?= get_site_url().'/en/contact-us?data='.base64_encode($reseller['email'])?>"><?=$reseller['email']?></a>
+                                    <strong><span class="fr-data-email">E-mail: </span></strong><a class="fr-data-email-info" href="<?= get_site_url().'/index.php/contact-us?data='.base64_encode($reseller['email'])?>"><?=$reseller['email']?></a>
                                 </div>
                             </div>
                         </div>

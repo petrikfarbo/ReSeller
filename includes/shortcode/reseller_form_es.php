@@ -133,7 +133,7 @@ function fr_reseller_form_es_shortcode() {
                     var whatsapp = localidade.whatsapp ? '<span class="fr-data-whatsapp"><strong>WhatsApp:</strong> </span><a class="fr-data-whatsapp-info" href="https://wa.me/55'+frWpp+'" target="_blank">' + localidade.whatsapp + '</span><br />' : '';
                     
                     var fax = localidade.fax ? '<span class="fr-data-fax"><strong>Fax:</strong> </span><span class="fr-data-fax-info">' + localidade.fax + '</span><br />' : '';
-                    var email2 = localidade.email2 ? '<strong><span class="fr-data-email">E-mail: </span></strong><a href="<?= get_site_url();?>/es/hable-con-nosotros?data=' + btoa(localidade.email2) + '" class="fr-data-email-info">' + localidade.email2 + '</a><br />' : '';
+                    var email2 = localidade.email2 ? '<strong><span class="fr-data-email">E-mail: </span></strong><a href="<?= get_site_url();?>/index.php/hable-con-nosotros?data=' + btoa(localidade.email2) + '" class="fr-data-email-info">' + localidade.email2 + '</a><br />' : '';
                     var state = localidade.state ? '<span class="fr-data-country-state">'+nomeEstado+' - '+localidade.country+'</span>' : '<span class="fr-data-country">'+localidade.country+'</span>';
                     
                     
@@ -162,7 +162,7 @@ function fr_reseller_form_es_shortcode() {
                         phone2 +
                         whatsapp +
                         fax +
-                        '<strong><span class="fr-data-email">E-mail: </span></strong><a class="fr-data-email-info" href="<?= get_site_url();?>/es/hable-con-nosotros?data=' + btoa(localidade.email) + '">' + localidade.email + '</a>'+
+                        '<strong><span class="fr-data-email">E-mail: </span></strong><a class="fr-data-email-info" href="<?= get_site_url();?>/index.php/hable-con-nosotros?data=' + btoa(localidade.email) + '">' + localidade.email + '</a>'+
                         '</div></div></div></div></div></div></div>';
                     
                     $(".fr-data").append(html);
